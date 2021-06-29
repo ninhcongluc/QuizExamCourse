@@ -4,19 +4,24 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --port 3000",
+    "dev": "nodemon old/server.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jquery": "^3.6.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.6",
+    "nodemon": "^2.0.7",
     "objection": "^2.2.15",
     "sqlite3": "^5.0.2",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.10"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

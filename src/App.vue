@@ -4,7 +4,7 @@
 
     <div class="auth-wrapper">
       <div class="auth-inner">
-        <Login />
+         <router-view />
       </div>
     </div>
   </div>
@@ -12,15 +12,15 @@
 
 <script>
 import Nav from './components/Nav.vue'
-// import Home from './components/Home.vue'
-import Login from './components/Login.vue'
+
+
 
 export default {
   name: "App",
   components : {
-    Nav,
-    // Home,
-    Login
+    Nav
+
+   
   }
 };
 </script>
@@ -31,7 +31,7 @@ export default {
   box-sizing: border-box;
 }
 body {
-  background: #1C8EF9 !important;
+  background: pink !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
