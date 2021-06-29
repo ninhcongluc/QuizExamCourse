@@ -1,7 +1,21 @@
 <template>
-  <div id="app">
+  <div id="app" v-bind:class="currentTheme">
     <Nav />
-
+    {{currentTheme}}
+     <div class="theme-options" >
+            <div v-bind:class="{'active':currentTheme==='theme-white'}"
+             @click="switchTheme('theme-white')"  class="theme theme-white"></div>
+            <div v-bind:class="{'active':currentTheme==='theme-blue'}"
+             @click="switchTheme('theme-blue')" class="theme theme-blue"></div>
+            <div v-bind:class="{'active':currentTheme==='theme-orange'}"
+             @click="switchTheme('theme-orange')" class="theme theme-orange"></div>
+            <div v-bind:class="{'active':currentTheme==='theme-purple'}"
+             @click="switchTheme('theme-purple')" class="theme theme-purple"></div>
+            <div v-bind:class="{'active':currentTheme==='theme-green'}"
+             @click="switchTheme('theme-green')" class="theme theme-green"></div>
+            <div v-bind:class="{'active':currentTheme==='theme-black'}"
+             @click="switchTheme('theme-black')" class="theme theme-black"></div>
+     </div>
     <div class="auth-wrapper">
       <div class="auth-inner">
          <router-view />
@@ -13,14 +27,21 @@
 <script>
 import Nav from './components/Nav.vue'
 
-
-
 export default {
   name: "App",
   components : {
     Nav
-
-   
+  },
+  data() {
+    return {
+      currentTheme : localStorage.getItem('theme-color')
+    }
+  },
+  methods: {
+    switchTheme(theme) {
+      localStorage.setItem('theme-color',theme)
+      this.currentTheme = localStorage.getItem('theme-color')
+    }
   }
 };
 </script>
@@ -30,8 +51,47 @@ export default {
 * {
   box-sizing: border-box;
 }
+.theme-options {
+  margin-top: 60px;
+  text-align: center;
+ 
+  padding-right: 100px;
+}
+.theme {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 2px 10px;
+  border: 1px solid #fff;
+  opacity: 0.5;
+}
+.theme:active {
+  opacity: 1;
+}
+.theme-white {
+  background-color: #eee;
+}
+
+.theme-blue {
+  background-color: #1e41c1;
+}
+
+.theme-orange {
+  background-color: #b64b1e;
+}
+.theme-purple {
+  background-color: #7852ae;
+}
+.theme-green {
+  background-color: #5faf3b;
+}
+.theme-black {
+  background-color: #000;
+}
+
 body {
-  background: pink !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -46,22 +106,11 @@ body, html, #app, #root, auth-wrapper {
   height: 100%;
 }
 
-#app {
-  text-align: center;
-}
+
 .navbar-light {
   background-color: #fff;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
 }
-
-.auth-wrapper {
-  margin-top: 100px ;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: left;
-}
-
 .auth-inner {
   width: 450px;
   margin: auto;
@@ -72,7 +121,6 @@ body, html, #app, #root, auth-wrapper {
    transition: all .3s;
 
 }
-
 .auth-wrapper .form-control:focus {
   border-color: #167bff;
   box-shadow: none;
@@ -83,19 +131,7 @@ body, html, #app, #root, auth-wrapper {
   line-height: 1;
   padding-bottom: 20px;
 }
-.custom-control-label {
-  font-weight: 400;
-}
-.forgot-password,
-.forgot-password a {
-  text-align: right;
-  font-size: 13px;
-  padding-top: 10px;
-  color: #7f7d7d;
-  margin: 0;
-}
-.forgot-password a {
-  color: #167bff;
-}
+
+
 
 </style>

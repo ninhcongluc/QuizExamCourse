@@ -2,21 +2,30 @@
   <form @submit.prevent="handleSubmit" action="">
     <h3>Sign up</h3>
     <div class="form-group">
-      <label for="">First Name</label>
+      <label for="">Username</label>
       <input
         type="text"
-        v-model="first_name"
+        v-model="username"
         class="form-control"
-        placeholder="First name"
+        placeholder="Username"
       />
     </div>
     <div class="form-group">
-      <label for="">Last Name</label>
+      <label for="">Password</label>
       <input
-        type="text"
-        v-model="last_name"
+        type="password"
+        v-model="password"
         class="form-control"
-        placeholder="Last name"
+        placeholder="Password"
+      />
+    </div>
+    <div class="form-group">
+      <label for="">Confirm Password</label>
+      <input
+        type="password"
+        class="form-control"
+        v-model="password_confirm"
+        placeholder="Confirm Password"
       />
     </div>
 
@@ -31,24 +40,28 @@
     </div>
 
     <div class="form-group">
-      <label for="">Password</label>
+      <label for="">Fullname</label>
       <input
-        type="password"
+        type="text"
         class="form-control"
-        v-model="passsword"
-        placeholder="Password"
+        v-model="full_name"
+        placeholder="Full Name"
+      />
+    </div>
+    <div class="form-group">
+      <label for="">Admin</label>
+      <input type="text" class="form-control" v-model="admin" placeholder="0" />
+    </div>
+    <div class="form-group">
+      <label for="">Position</label>
+      <input
+        type="text"
+        class="form-control"
+        v-model="position"
+        placeholder="Dev"
       />
     </div>
 
-    <div class="form-group">
-      <label for="">Confirm Password</label>
-      <input
-        type="password"
-        class="form-control"
-        v-model="password_confirm"
-        placeholder="Confirm Password"
-      />
-    </div>
     <button class="btn btn-primary btn-block">Sign up</button>
   </form>
 </template>
@@ -60,27 +73,26 @@ export default {
   name: "Register",
   data() {
     return {
-      first_name: "",
-      last_name: "",
-      email: "",
+      username: "",
       password: "",
-      password_confirm: "",
+      email: "",
+      full_name: "",
+      admin: 0,
+      position: "",
     };
   },
   methods: {
     async handleSubmit() {
-
-     const response = await  axios.post('register',  {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        email: this.email,
+      const response = await axios.post("register", {
+        username: this.username,
         password: this.password,
-        password_confirm: this.password_confirm,
-      })
-      console.log(response)
-      
-
-      this.$router.push('/login')
+        email: this.email,
+        full_name: this.full_name,
+        admin: this.admin,
+        position: this.position,
+      });
+      console.log(response);
+ 
     },
   },
 };
