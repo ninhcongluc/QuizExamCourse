@@ -44,7 +44,7 @@
       <input
         type="text"
         class="form-control"
-        v-model="full_name"
+        v-model="fullName"
         placeholder="Full Name"
       />
     </div>
@@ -76,22 +76,23 @@ export default {
       username: "",
       password: "",
       email: "",
-      full_name: "",
+      fullName: "",
       admin: 0,
       position: "",
     };
   },
   methods: {
     async handleSubmit() {
-      const response = await axios.post("register", {
+      const response = await axios.post("users", {
         username: this.username,
         password: this.password,
         email: this.email,
-        full_name: this.full_name,
+        fullName: this.fullName,
         admin: this.admin,
         position: this.position,
       });
       console.log(response);
+      this.$router.push('/login')
  
     },
   },

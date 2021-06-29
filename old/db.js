@@ -64,10 +64,12 @@ async function createTables() {
     if (!hasUserTable) {
       await knex.schema.createTable('users', table => {
         table.increments('id').primary()
-        table.string('firstName')
-        table.string('lastName')
-        table.string('email')
+        table.string('username')
         table.string('password')
+        table.string('email')
+        table.string('fullname')
+        table.integer('admin')
+        table.string('position')
       })
     }
 
