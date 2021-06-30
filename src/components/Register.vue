@@ -1,5 +1,7 @@
 <template>
-  <form @submit.prevent="handleSubmit" action="">
+    <div class="auth-wrapper">
+      <div class="auth-inner">
+         <form @submit.prevent="handleSubmit" action="">
     <h3>Sign up</h3>
     <div class="form-group">
       <label for="">Username</label>
@@ -64,6 +66,9 @@
 
     <button class="btn btn-primary btn-block">Sign up</button>
   </form>
+      </div>
+    </div>
+  
 </template>
 
 
@@ -92,9 +97,24 @@ export default {
         position: this.position,
       });
       console.log(response);
-      this.$router.push('/login')
+      this.$router.push('/')
  
     },
   },
 };
 </script>
+<style scoped>
+
+
+.auth-wrapper .form-control:focus {
+  border-color: #167bff;
+  box-shadow: none;
+}
+.auth-wrapper h3 {
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+  padding-bottom: 20px;
+}
+
+</style>

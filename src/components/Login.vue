@@ -1,5 +1,7 @@
 <template>
-<form @submit.prevent = "handleSubmit" action="">
+  <div class="auth-wrapper">
+      <div class="auth-inner">
+        <form @submit.prevent = "handleSubmit" action="">
     <h3>Login</h3>
     <div class="form-group">
         <label for="">Username</label>
@@ -12,6 +14,9 @@
     </div>
     <button class="btn btn-primary btn-block">Login</button>
 </form>
+      </div>
+    </div>
+
     
 </template>
 
@@ -33,7 +38,22 @@ export default {
                 password:this.password
             })
             console.log(response)
-            this.$router.push('/')
+            this.$router.push('/home')
         }} 
 }
 </script>
+
+<style scoped>
+
+.auth-wrapper .form-control:focus {
+  border-color: #167bff;
+  box-shadow: none;
+}
+.auth-wrapper h3 {
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+  padding-bottom: 20px;
+}
+
+</style>

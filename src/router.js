@@ -6,11 +6,6 @@ import Register from "./components/Register.vue";
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
-  },
-  {
-    path: "/login",
     name: "Login",
     component: Login,
   },
@@ -18,7 +13,12 @@ const routes = [
       path: "/register",
       name: "Register",
       component: Register
-  }
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: Home
+}
 ];
 
 const router = createRouter({

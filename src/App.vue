@@ -16,11 +16,8 @@
             <div v-bind:class="{'active':currentTheme==='theme-black'}"
              @click="switchTheme('theme-black')" class="theme theme-black"></div>
      </div>
-    <div class="auth-wrapper">
-      <div class="auth-inner">
-         <router-view />
-      </div>
-    </div>
+     <router-view />
+   
   </div>
 </template>
 
@@ -50,6 +47,7 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
 * {
   box-sizing: border-box;
+  
 }
 .theme-options {
   margin-top: 60px;
@@ -121,16 +119,7 @@ body, html, #app, #root, auth-wrapper {
    transition: all .3s;
 
 }
-.auth-wrapper .form-control:focus {
-  border-color: #167bff;
-  box-shadow: none;
-}
-.auth-wrapper h3 {
-  text-align: center;
-  margin: 0;
-  line-height: 1;
-  padding-bottom: 20px;
-}
+
 
 
 
