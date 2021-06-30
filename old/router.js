@@ -2,10 +2,11 @@ const express= require('express')
 const bcrypt = require('bcryptjs')
 const router = express.Router()
 const usersService = require('./userService')
+const courseSevrvice = require('./courseService')
 const jwt = require('jsonwebtoken')
 const SECRET_KEY = 'HuckFitler'
 
-router.post('/users', async (req, res) => {
+router.post('/register', async (req, res) => {
     const body = req.body
     const saltRounds = 10
   
@@ -95,7 +96,17 @@ const hashPromise = (password, saltRounds) => {
 //     })
 //   })
 // }
+// course 
+router.get('/courses', async (_, res) => {
+  const courses = await courseSevrvice.findAll().catch(e => { console.error(e) })
+  res.send(courses)
+})
 
+router.post('/courses', async (req, res) => {
+  const course = req.body
+  const row = await courseSevrvice.insertOne(course.name, course.descript, course.total_time, course.valid).catch(e => { console.error(e) })
+  res.send(row)
+})
 
 
 module.exports = router

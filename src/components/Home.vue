@@ -1,28 +1,24 @@
 <template>
-
-    <input type="checkbox" id="check"/>
-    <label for="check">
-      <i class="fas fa-bars" id="bar"></i>
-      <i class="fas fa-times" id="cancel"></i>
-    </label>
+  <input type="checkbox" id="check" />
+  <label for="check">
+    <i class="fas fa-bars" id="bar"></i>
+    <i class="fas fa-times" id="cancel"></i>
+  </label>
 
   <div class="sidebar">
     <header>My Course</header>
     <ul>
       <li>
-        <a href="#"><i class="fas fa-quran"> Course</i></a>
+        <a  href="/course"><i class="fas fa-quran"> Course</i></a>
       </li>
       <li>
-        <a href="#"><i class="fas fa-question-circle">Quiz Detail</i></a>
+        <a href="#"><i class="fas fa-question-circle"> Quiz Detail</i></a>
       </li>
       <li>
-        <a href="#"><i class="fas fa-sign-in-alt">Logout</i></a>
+        <a href="#"><i class="fas fa-sign-in-alt"> Logout</i></a>
       </li>
     </ul>
   </div>
-  <section>
-
-  </section>
 </template>
  
  
@@ -30,8 +26,18 @@
 
 
 <script>
+
+
 export default {
   name: "Home",
+  data() {
+    return {
+      courses: [],
+    };
+  },
+  methods: {
+
+  },
 };
 </script>
 <style scoped>
@@ -47,7 +53,7 @@ export default {
   width: 250px;
   height: 100%;
   background: #042331;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
 .sidebar header {
   font-size: 22px;
@@ -80,7 +86,7 @@ ul li:hover a {
 }
 
 #check {
-  display:none;
+  display: none;
 }
 label #bar,
 label #cancel {
@@ -94,35 +100,30 @@ label #bar {
   font-size: 35px;
   color: white;
   padding: 6px 12px;
-  transition: all .5s;
+  transition: all 0.5s;
   position: fixed;
 }
 label #cancel {
-    z-index: 1111;
-    left: -195px;
-    top: 155px;
-    font-size:30px ;
-    color: #0a5275;
-    padding: 4px 9px;
-    transition: all .5s ease;
-    position: fixed;
+  z-index: 1111;
+  left: -195px;
+  top: 155px;
+  font-size: 30px;
+  color: #0a5275;
+  padding: 4px 9px;
+  transition: all 0.5s ease;
+  position: fixed;
 }
 
 #check:checked ~ .sidebar {
-    left: 0;
+  left: 0;
 }
 
-#check:checked ~ label #bar  {
-    left: 250px;
-    opacity: 0;
-    pointer-events: none;
-    
-
+#check:checked ~ label #bar {
+  left: 250px;
+  opacity: 0;
+  pointer-events: none;
 }
-#check:checked ~ label #cancel  {
-    left: 195px;
-
-
+#check:checked ~ label #cancel {
+  left: 195px;
 }
-
 </style>

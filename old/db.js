@@ -50,6 +50,12 @@ class User extends Model {
   }
 }
 
+class Course extends Model {
+  static get tableName(){
+    return 'courses'
+  }
+}
+
 async function createTables() {
     const hasSettingTable = await knex.schema.hasTable('program_settings')
     if (!hasSettingTable) {
@@ -73,11 +79,23 @@ async function createTables() {
       })
     }
 
+    const hasCourseTable = await knex.schema.hasTable('courses')
+    if (!hasCourseTable) {
+      await knex.schema.createTable('courses', table => {
+        table.increments('id').primary()
+        table.string('name')
+        table.string('descript')
+        table.int('total_time')
+        table.int('valid')
+      })
+    }
+
 
 }
 
 module.exports = {
     createTables,
     User,
-    ProgramSetting
+    ProgramSetting,
+    Course
 }
