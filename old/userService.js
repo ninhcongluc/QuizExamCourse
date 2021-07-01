@@ -20,6 +20,12 @@ const findByUsername = (username) => {
     .first()
 }
 
+const update = async (id, username, password , email, fullname, admin, position) => {
+  await User.query()
+    .patch({username: username, password: password, email: email, fullname: fullname, admin: admin, position: position})
+    .where('id', '=', id)
+}
+
 const addOne = (username, password, email, fullname, position, admin) => {
   return User.query().insert({
       username: username,
@@ -34,6 +40,7 @@ const addOne = (username, password, email, fullname, position, admin) => {
 module.exports = {
   findAll,
   findOne,
+  update,
   idExists,
   findByUsername,
   addOne,

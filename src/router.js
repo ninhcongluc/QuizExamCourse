@@ -47,7 +47,7 @@ const routes = [
     component: AddUser
   },
   {
-    path: "/admin/update_user/:id",
+    path: "/admin/update_user/:id?",
     name: "UpdateUser",
     component: UpdateUser
   }

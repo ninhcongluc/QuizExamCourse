@@ -48,6 +48,12 @@ router.post('/users', async (req, res) => {
   res.send(addUser)
 })
 
+// update users
+router.put('/users/update', async (req, res) => {
+  const user = req.body
+   await usersService.update( user.id,user.username, user.password, user.email, user.fullname, user.admin, user.position).catch(e => { console.error(e) })
+  res.send(user)
+})
 
 router.post('/login', (req, res) => {
   const user = req.body
