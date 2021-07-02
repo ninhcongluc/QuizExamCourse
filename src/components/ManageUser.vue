@@ -19,17 +19,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(user,index) in users"  v-bind:key="user.id">
-          <th scope="row">{{user.id}}</th>
+        <tr v-for="user in users"  v-bind:key="user.id">
+          <th scope="row" >{{user.id}}</th>
           <td>{{user.username}}</td>
-          <td>{{user.Password}}</td>
+          <td>{{user.password.slice(4, 10)}}</td>
           <td>{{user.email}}</td>
           <td>{{user.fullname}}</td>
           <td>{{user.admin}}</td>
           <td>{{user.position}}</td>
           <td class="btn">
-            <button @click="handleUpdate(user, index)"   id="btnUpdate">Update</button>
-            <button >Delete</button>
+            <button @click="handleUpdate(user.id)"   id="btnUpdate">Update</button>
+            <button @click="handleDelete(user.id)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -43,7 +43,7 @@ export default {
   name: "ManageUser",
   data() {
     return {
-      users: [],
+      users:[],
       selectedId: 0
     };
   },
@@ -52,10 +52,17 @@ export default {
     this.users = response.data;
   },
   methods: {
-      async handleUpdate(user, index) {
-         this.selectedId = index
-          this.$router.push(`/admin/update_user/${this.selectedId}`);   
+      async handleUpdate(id) { 
+        
+          this.$router.push(`/admin/update_user/${id}`);   
+      },
+
+      async handleDelete(id) {
+         await axios.delete(`/users/delete/${id}`)
+          this.$router.push(`/admin/users`); 
+      
       }
+
   }
 };
 

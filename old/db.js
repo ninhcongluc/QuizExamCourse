@@ -12,41 +12,10 @@ const knex = Knex({
 
 Model.knex(knex)
 
-class ProgramSetting extends Model {
-  static get tableName() {
-    return 'program_settings'
-  }
-
-  static get relationMappings() {
-    return {
-      owner: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: User,
-        join: {
-          from: 'program_settings.user_id',
-          to: 'user.id'
-        }
-      }
-    }
-  }
-}
 
 class User extends Model {
   static get tableName() {
     return 'users'
-  }
-
-  static get relationMappings() {
-    return {
-      setting: {
-        relation: Model.HasOneRelation,
-        modelClass: ProgramSetting,
-        join: {
-          from: 'users.id',
-          to: 'program_settings.user_id'
-        }
-      }
-    }
   }
 }
 
@@ -96,6 +65,5 @@ async function createTables() {
 module.exports = {
     createTables,
     User,
-    ProgramSetting,
     Course
 }

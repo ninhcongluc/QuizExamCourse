@@ -26,6 +26,11 @@ const update = async (id, username, password , email, fullname, admin, position)
     .where('id', '=', id)
 }
 
+const deleteUser = async(id) => {
+  await User.query()
+  .delete()
+  .where('id', '=', id);
+}
 const addOne = (username, password, email, fullname, position, admin) => {
   return User.query().insert({
       username: username,
@@ -42,6 +47,7 @@ module.exports = {
   findOne,
   update,
   idExists,
+  deleteUser,
   findByUsername,
   addOne,
 }
