@@ -131,7 +131,7 @@ label #bar {
 label #cancel {
   z-index: 1111;
   left: -195px;
-  top: 175px;
+  top: 165px;
   font-size: 30px;
   color: #0a5275;
   padding: 4px 9px;
