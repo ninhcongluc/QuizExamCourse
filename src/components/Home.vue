@@ -19,6 +19,7 @@
           <a @click="handleLogout"><i class="fas fa-sign-in-alt"> Logout</i></a>
         </li>
       </ul>
+  
     </div>
   </div>
 </template>
@@ -35,6 +36,7 @@ export default {
   data() {
     return {
       courses: [],
+
     };
   },
   created() {
@@ -117,7 +119,7 @@ label #bar {
 label #cancel {
   z-index: 1111;
   left: -195px;
-  top: 160px;
+  top: 135px;
   font-size: 30px;
   color: #0a5275;
   padding: 4px 9px;
