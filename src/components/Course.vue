@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <table id="courses">
       <tr>
         <th>Id</th>
@@ -10,12 +9,12 @@
         <th>Valid</th>
         <th>Exam</th>
       </tr>
-      <tr  v-for="course in courses" :key="course.id">
-        <td>  {{ course.id }}</td>
-        <td>  {{ course.name }}</td>
-        <td>  {{ course.descript }}</td>
-        <td>  {{ course.total_time }}</td>
-        <td>  {{ course.valid }}</td>
+      <tr v-for="course in courses" :key="course.id">
+        <td>{{ course.id }}</td>
+        <td>{{ course.name }}</td>
+        <td>{{ course.descript }}</td>
+        <td>{{ course.total_time }}</td>
+        <td>{{ course.valid }}</td>
         <td id="exam"><button>Start</button></td>
       </tr>
     </table>
@@ -23,25 +22,29 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   name: "Course",
+  created() {
+    //user is not authorized
+    if (localStorage.getItem("token") === null) {
+      this.$router.push("/");
+    }
+  },
   data() {
     return {
       courses: [],
     };
   },
-  methods: {
-
-  },
+  methods: {},
   mounted() {
-      axios.get('/courses')
-      .then(response => {
-          this.courses = response.data
+    axios
+      .get("/courses")
+      .then((response) => {
+        this.courses = response.data;
       })
-      .catch(err => console.log(err)) 
-      
-  }
+      .catch((err) => console.log(err));
+  },
 };
 </script>
 
@@ -76,18 +79,16 @@ export default {
 }
 
 button {
-    border-radius: 0.3rem;
-    width: 50px;
-    background-color: rgb(94, 94, 173);
-    color: white;
- 
+  border-radius: 0.3rem;
+  width: 50px;
+  background-color: rgb(94, 94, 173);
+  color: white;
 }
 
 button:hover {
-    background-color: rgb(182, 74, 74);
-
+  background-color: rgb(182, 74, 74);
 }
 #exam {
-    text-align: center;
+  text-align: center;
 }
 </style>

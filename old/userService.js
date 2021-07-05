@@ -16,6 +16,7 @@ const findOne = (id) => {
 const findByUsername = (username) => {
   return User.query()
     .select('*')
+    .skipUndefined()
     .where('username', '=', username)
     .first()
 }
@@ -41,6 +42,8 @@ const addOne = (username, password, email, fullname, position, admin) => {
       admin: admin,
   })
 }
+
+
 
 module.exports = {
   findAll,

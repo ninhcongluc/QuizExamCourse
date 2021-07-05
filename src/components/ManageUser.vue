@@ -19,17 +19,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in users"  v-bind:key="user.id">
-          <th scope="row" >{{user.id}}</th>
-          <td>{{user.username}}</td>
-          <td>{{user.password.slice(4, 10)}}</td>
-          <td>{{user.email}}</td>
-          <td>{{user.fullname}}</td>
-          <td>{{user.admin}}</td>
-          <td>{{user.position}}</td>
+        <tr v-for="user in users" v-bind:key="user.id">
+          <th scope="row">{{ user.id }}</th>
+          <td>{{ user.username }}</td>
+          <td>{{ user.password.slice(4, 10) }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.fullname }}</td>
+          <td>{{ user.admin }}</td>
+          <td>{{ user.position }}</td>
           <td class="btn">
-            <button @click="handleUpdate(user.id)"   id="btnUpdate">Update</button>
-            <button @click="handleDelete(user.id)">Delete</button>
+            <button @click="handleUpdate(user.id)" id="btnUpdate">
+              Update
+            </button>
+            <button @click="handleDelete(user.id)" id="btnDelete">
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>
@@ -41,10 +45,16 @@
 import axios from "axios";
 export default {
   name: "ManageUser",
+  created() {
+    //user is not authorized
+    if (localStorage.getItem("token") === null) {
+      this.$router.push("/");
+    }
+  },
   data() {
     return {
-      users:[],
-      selectedId: 0
+      users: [],
+      selectedId: 0,
     };
   },
   async mounted() {
@@ -52,21 +62,17 @@ export default {
     this.users = response.data;
   },
   methods: {
-      async handleUpdate(id) { 
-        
-          this.$router.push(`/admin/update_user/${id}`);   
-      },
+    async handleUpdate(id) {
+      this.$router.push(`/admin/update_user/${id}`);
+    },
 
-      async handleDelete(id) {
-         await axios.delete(`/users/delete/${id}`)
-          this.$router.push(`/admin/users`); 
-      
-      }
-
-  }
+    async handleDelete(id) {
+      const res = await axios.delete(`/users/delete/${id}`);
+      console.log(res);
+      this.$router.push("/admin/courses");
+    },
+  },
 };
-
-
 </script>
 
 <style scoped>

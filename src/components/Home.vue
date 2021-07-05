@@ -1,23 +1,25 @@
 <template>
-  <input type="checkbox" id="check" />
-  <label for="check">
-    <i class="fas fa-bars" id="bar"></i>
-    <i class="fas fa-times" id="cancel"></i>
-  </label>
+  <div class="home">
+    <input type="checkbox" id="check" />
+    <label for="check">
+      <i class="fas fa-bars" id="bar"></i>
+      <i class="fas fa-times" id="cancel"></i>
+    </label>
 
-  <div class="sidebar">
-    <header>My Course</header>
-    <ul>
-      <li>
-        <a  href="/course"><i class="fas fa-quran"> Course</i></a>
-      </li>
-      <li>
-        <a href="#"><i class="fas fa-question-circle"> Quiz Detail</i></a>
-      </li>
-      <li>
-        <a href="#"><i class="fas fa-sign-in-alt"> Logout</i></a>
-      </li>
-    </ul>
+    <div class="sidebar">
+      <header>My Course</header>
+      <ul>
+        <li>
+          <a href="/course"><i class="fas fa-quran"> Course</i></a>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-question-circle"> Quiz Detail</i></a>
+        </li>
+        <li>
+          <a @click="handleLogout"><i class="fas fa-sign-in-alt"> Logout</i></a>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
  
@@ -26,7 +28,7 @@
 
 
 <script>
-
+// import axios from "axios";
 
 export default {
   name: "Home",
@@ -35,8 +37,17 @@ export default {
       courses: [],
     };
   },
+  created() {
+    //user is not authorized
+    if (localStorage.getItem("token") === null) {
+      this.$router.push("/");
+    }
+  },
   methods: {
-
+    async handleLogout() {
+      localStorage.clear();
+      this.$router.push("/");
+    },
   },
 };
 </script>
@@ -106,7 +117,7 @@ label #bar {
 label #cancel {
   z-index: 1111;
   left: -195px;
-  top: 155px;
+  top: 160px;
   font-size: 30px;
   color: #0a5275;
   padding: 4px 9px;
@@ -125,5 +136,12 @@ label #cancel {
 }
 #check:checked ~ label #cancel {
   left: 195px;
+}
+
+.home {
+  background-image: url("../assets/background.jpg") ;
+  background-size: 300px 100px;
+  background-repeat: no-repeat;
+
 }
 </style>

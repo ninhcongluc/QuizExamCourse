@@ -19,7 +19,13 @@
 
 <script>
 export default {
-    name: "Admin"
+    name: "Admin",
+     created() {
+    //user is not authorized
+    if (localStorage.getItem("token") === null) {
+      this.$router.push("/");
+    }
+  },
 
 }
 </script>

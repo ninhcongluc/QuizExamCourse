@@ -82,6 +82,12 @@
 import axios from "axios";
 export default {
   name: "AddUser",
+  created() {
+    //user is not authorized
+    if (localStorage.getItem("token") === null) {
+      this.$router.push("/");
+    }
+  },
   data() {
     return {
       username: "",

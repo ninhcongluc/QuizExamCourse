@@ -7,6 +7,9 @@ import Admin from "./components/Admin.vue";
 import ManageUser from "./components/ManageUser.vue"
 import AddUser from "./components/AddUser.vue"
 import UpdateUser from "./components/UpdateUser.vue"
+import ManageCourse from "./components/ManageCourse.vue"
+import AddCourse from "./components/AddCourse.vue"
+import UpdateCourse from "./components/UpdateCourse.vue"
 
 
 const routes = [
@@ -50,6 +53,21 @@ const routes = [
     path: "/admin/update_user/:id?",
     name: "UpdateUser",
     component: UpdateUser
+  },
+  {
+    path: "/admin/courses",
+    name: "ManageCourse",
+    component: ManageCourse
+  },
+  {
+    path: "/admin/add_course",
+    name: "AddCourse",
+    component: AddCourse
+  },
+  {
+    path: "/admin/update_course/:id?",
+    name: "UpdateCourse",
+    component: UpdateCourse
   }
 ];
 
