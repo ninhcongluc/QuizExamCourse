@@ -1,9 +1,11 @@
 <template>
+   <span><small><i class="fas fa-users-cog"></i> {{userInformation.username}}</small></span>
   <div class="home">
     <input type="checkbox" id="check" />
     <label for="check">
       <i class="fas fa-bars" id="bar"></i>
       <i class="fas fa-times" id="cancel"></i>
+
     </label>
 
     <div class="sidebar">
@@ -19,9 +21,10 @@
           <a @click="handleLogout"><i class="fas fa-sign-in-alt"> Logout</i></a>
         </li>
       </ul>
-  
+      
     </div>
   </div>
+
 </template>
  
  
@@ -36,6 +39,10 @@ export default {
   data() {
     return {
       courses: [],
+      userInformation : {
+        username : "",
+        password : ""
+      }
 
     };
   },
@@ -43,6 +50,11 @@ export default {
     //user is not authorized
     if (localStorage.getItem("token") === null) {
       this.$router.push("/");
+    }
+    else { 
+      // console.log(localStorage.getItem('data'))
+      this.userInformation = JSON.parse(localStorage.getItem('data'))
+      console.log(this.userInformation)
     }
   },
   methods: {
@@ -119,7 +131,7 @@ label #bar {
 label #cancel {
   z-index: 1111;
   left: -195px;
-  top: 135px;
+  top: 175px;
   font-size: 30px;
   color: #0a5275;
   padding: 4px 9px;
@@ -138,6 +150,13 @@ label #cancel {
 }
 #check:checked ~ label #cancel {
   left: 195px;
+}
+
+ small { 
+   margin-left: 80%;
+   font-style: bold;
+   color: red;
+
 }
 
 </style>

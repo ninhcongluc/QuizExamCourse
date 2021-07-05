@@ -15,7 +15,7 @@
         <td>{{ course.descript }}</td>
         <td>{{ course.total_time }}</td>
         <td>{{ course.valid }}</td>
-        <td id="exam"><button>Start</button></td>
+        <td id="exam"><button @click="handleStart">Start</button></td>
       </tr>
     </table>
   </div>
@@ -36,7 +36,11 @@ export default {
       courses: [],
     };
   },
-  methods: {},
+  methods: {
+    handleStart() {
+      this.$router.push('/course/quiz')
+    }
+  },
   mounted() {
     axios
       .get("/courses")

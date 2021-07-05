@@ -10,6 +10,7 @@ import UpdateUser from "./components/UpdateUser.vue"
 import ManageCourse from "./components/ManageCourse.vue"
 import AddCourse from "./components/AddCourse.vue"
 import UpdateCourse from "./components/UpdateCourse.vue"
+import QuizExam from "./components/QuizExam.vue"
 
 
 const routes = [
@@ -68,6 +69,11 @@ const routes = [
     path: "/admin/update_course/:id?",
     name: "UpdateCourse",
     component: UpdateCourse
+  },
+  {
+    path: "/course/quiz",
+    name: "QuizExam",
+    component: QuizExam
   }
 ];
 

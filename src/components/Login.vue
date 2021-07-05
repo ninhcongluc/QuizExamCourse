@@ -66,6 +66,8 @@ export default {
               //if successfull
               if (res.status === 200) {
                 localStorage.setItem("token", res.data.token);
+                  localStorage.setItem("data", res.config.data);
+                
                 //   console.log(res.config.data.includes("admin"))
                 if (res.config.data.includes("admin")) {
                   this.$router.push("/admin");
