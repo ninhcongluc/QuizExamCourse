@@ -138,10 +138,4 @@ label #cancel {
   left: 195px;
 }
 
-.home {
-  background-image: url("../assets/background.jpg") ;
-  background-size: 300px 100px;
-  background-repeat: no-repeat;
-
-}
 </style>
