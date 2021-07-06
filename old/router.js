@@ -3,8 +3,10 @@ const bcrypt = require('bcryptjs')
 const router = express.Router()
 const usersService = require('./userService')
 const courseSevrvice = require('./courseService')
+const questionService = require('./questionService')
 const jwt = require('jsonwebtoken')
 const SECRET_KEY = 'Doraemon'
+
 
 
 router.post('/register', async (req, res) => {
@@ -199,8 +201,13 @@ router.delete('/courses/delete/:id',async(req,res) =>{
 
 
 
-router.delete('/logout',  (req, res) => {
-       refreshTokens = refreshTokens.filter(token => token !== req.body.token)
-       res.sendStatus(204)
-});
+
+router.post('/questions', async(req, res) => {
+  const q = req.body
+  console.log()
+  const row = await questionService.insertOne(q.type, q.content, q.correct_answer, q.course_id).catch(e => { console.error(e) })
+  res.send(row)
+
+})
+
 module.exports = router

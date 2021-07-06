@@ -155,7 +155,9 @@ label #cancel {
  small { 
    margin-left: 80%;
    font-style: bold;
-   color: red;
+   font-size: 24px;
+    color: transparent;
+   text-shadow: 0 0 0.5px rgba(223, 26, 26, 0.5);
 
 }
 

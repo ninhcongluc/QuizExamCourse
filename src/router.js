@@ -11,6 +11,7 @@ import ManageCourse from "./components/ManageCourse.vue"
 import AddCourse from "./components/AddCourse.vue"
 import UpdateCourse from "./components/UpdateCourse.vue"
 import QuizExam from "./components/QuizExam.vue"
+import AddQuestion from "./components/AddQuestion.vue"
 
 
 const routes = [
@@ -74,6 +75,11 @@ const routes = [
     path: "/course/quiz",
     name: "QuizExam",
     component: QuizExam
+  },
+  {
+    path: "/admin/add_question",
+    name: "AddQuestion",
+    component: AddQuestion
   }
 ];
 
