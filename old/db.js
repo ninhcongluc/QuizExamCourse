@@ -95,7 +95,7 @@ async function createTables() {
   }
 
   const hasAnswerTable = await knex.schema.hasTable('answers')
-  if (!hasQuestionTable) {
+  if (!hasAnswerTable) {
     await knex.schema.createTable('answers', table => {
       table.increments('id').primary()
       table.string('content')

@@ -12,6 +12,7 @@ import AddCourse from "./components/AddCourse.vue"
 import UpdateCourse from "./components/UpdateCourse.vue"
 import QuizExam from "./components/QuizExam.vue"
 import AddQuestion from "./components/AddQuestion.vue"
+import AddAnswer from "./components/AddAnswer.vue"
 
 
 const routes = [
@@ -72,7 +73,7 @@ const routes = [
     component: UpdateCourse
   },
   {
-    path: "/course/quiz",
+    path: "/course/quiz/:id?",
     name: "QuizExam",
     component: QuizExam
   },
@@ -80,6 +81,11 @@ const routes = [
     path: "/admin/add_question",
     name: "AddQuestion",
     component: AddQuestion
+  },
+  {
+    path: "/admin/add_answer",
+    name: "AddAnswer",
+    component: AddAnswer
   }
 ];
 

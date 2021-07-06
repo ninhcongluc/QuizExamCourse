@@ -15,7 +15,7 @@
         <td>{{ course.descript }}</td>
         <td>{{ course.total_time }}</td>
         <td>{{ course.valid }}</td>
-        <td id="exam"><button @click="handleStart">Start</button></td>
+        <td id="exam"><button @click="handleStart(course.id)">Start</button></td>
       </tr>
     </table>
   </div>
@@ -37,8 +37,8 @@ export default {
     };
   },
   methods: {
-    handleStart() {
-      this.$router.push('/course/quiz')
+    handleStart(id) {
+      this.$router.push(`/course/quiz/${id}`)
     }
   },
   mounted() {

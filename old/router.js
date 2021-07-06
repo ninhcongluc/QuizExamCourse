@@ -4,6 +4,7 @@ const router = express.Router()
 const usersService = require('./userService')
 const courseSevrvice = require('./courseService')
 const questionService = require('./questionService')
+const answerService = require('./answerService')
 const jwt = require('jsonwebtoken')
 const SECRET_KEY = 'Doraemon'
 
@@ -204,10 +205,22 @@ router.delete('/courses/delete/:id',async(req,res) =>{
 
 router.post('/questions', async(req, res) => {
   const q = req.body
-  console.log()
-  const row = await questionService.insertOne(q.type, q.content, q.correct_answer, q.course_id).catch(e => { console.error(e) })
+  const row = await questionService.insertOne(q.type, q.content, q.correct_answer,q.course_id).catch(e => { console.error(e) })
   res.send(row)
-
 })
+
+router.get('/questions/:id', async(req,res) => {
+    const response = await questionService.findQuestionByCourse(req.params.id)
+    console.log(response)
+   
+})
+
+
+router.post('/answers', (async(req,res) => {
+  const ans = req.body
+  console.log(ans)
+  const data = await answerService.insertOne(ans)
+  res.send(data)
+}))
 
 module.exports = router
