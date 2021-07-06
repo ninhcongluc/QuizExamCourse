@@ -3,6 +3,7 @@
     <h1>Quiz Exam</h1>
    
     {{courseId}}
+    {{data}}
 
   </div>
 </template>
@@ -14,11 +15,12 @@ export default {
   data() {
     return {
       courseId: this.$route.params.id,
+      data : []
     };
   },
   async mounted() {
-    const data = await axios.get(`/questions/${this.courseId}`);
-    console.log(data + "day la data")
+     this.data = await axios.get(`/questions/${this.courseId}`);
+    
   },
   methods : {
 

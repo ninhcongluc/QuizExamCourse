@@ -12,14 +12,13 @@ const insertOne = async(type, content, correct_answer, course_id) => {
     console.log(res)
 }
 
-const findQuestionByCourse = async(course_id) => { 
-    await Question.query().where('course_id', course_id)
-   
+const findListQuestion = async(course_id) => { 
+    const listQuestion = await Question.query().where('course_id', course_id)
+    console.log("data : " ,  listQuestion)
 }
 
 
 module.exports = {
     insertOne,
-    findQuestionByCourse
-
+    findListQuestion
 }

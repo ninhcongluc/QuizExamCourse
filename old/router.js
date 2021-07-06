@@ -209,10 +209,17 @@ router.post('/questions', async(req, res) => {
   res.send(row)
 })
 
+
 router.get('/questions/:id', async(req,res) => {
-    const response = await questionService.findQuestionByCourse(req.params.id)
-    console.log(response)
-   
+  try {
+    const id = req.params.id
+    const questions = await questionService.findListQuestion(id)
+     res.send(questions) 
+
+  }catch(err) {
+    res.send(err)
+  }
+
 })
 
 
