@@ -8,6 +8,8 @@ const answerService = require('./answerService')
 const jwt = require('jsonwebtoken')
 const SECRET_KEY = 'Doraemon'
 
+const { Question } = require('./db')
+
 
 
 router.post('/register', async (req, res) => {
@@ -213,7 +215,7 @@ router.post('/questions', async(req, res) => {
 router.get('/questions/:id', async(req,res) => {
   try {
     const id = req.params.id
-    const questions = await questionService.findListQuestion(id)
+    const questions = await Question.query().where('course_id', id)
      res.send(questions) 
 
   }catch(err) {

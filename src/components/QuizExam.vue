@@ -1,9 +1,12 @@
 <template>
   <div class="container">
     <h1>Quiz Exam</h1>
+    {{datas}}
    
-    {{courseId}}
-    {{data}}
+
+    <ul v-for="data in datas" :key="data.id">
+      <li>{{data.content}}</li>
+    </ul>
 
   </div>
 </template>
@@ -15,11 +18,15 @@ export default {
   data() {
     return {
       courseId: this.$route.params.id,
-      data : []
+      datas : null,
+      
+      
     };
   },
   async mounted() {
-     this.data = await axios.get(`/questions/${this.courseId}`);
+     const response = await axios.get(`/questions/${this.courseId}`);
+     this.datas = response.data
+    
     
   },
   methods : {
