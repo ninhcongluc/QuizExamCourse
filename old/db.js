@@ -53,6 +53,14 @@ class Course extends Model {
         from: 'courses.id',
         to: 'questions.course_id'
       }
+    },
+    answers : {
+      relation: Model.HasManyRelation,
+      modelClass: Answer,
+      join: {
+        from: 'courses.id',
+        to: 'answers.courseId'
+      }
     }
   }
 }
@@ -100,6 +108,7 @@ async function createTables() {
       table.increments('id').primary()
       table.string('content')
       table.integer('questionId').references('id').inTable('questions')
+      table.integer('courseId').references('id').inTable('courses')
     })
   }
 

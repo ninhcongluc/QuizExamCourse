@@ -14,6 +14,6 @@ const port = 8000
 
 app.use(router)
 app.listen(port, () => {
-    db.createTables()
-    console.log(`Example app listening at http://localhost:${port}`)
-  })
+  db.createTables()
+  console.log(`Example app listening at http://localhost:${port}`)
+})

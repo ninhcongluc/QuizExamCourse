@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken')
 const SECRET_KEY = 'Doraemon'
 
 const { Question } = require('./db')
+const { Answer } = require('./db')
 
 
 
@@ -231,5 +232,18 @@ router.post('/answers', (async(req,res) => {
   const data = await answerService.insertOne(ans)
   res.send(data)
 }))
+
+
+router.get('/answers/:id', async(req,res) => {
+  try {
+    const id = req.params.id
+    const answers = await Answer.query().where('courseId', id)
+     res.send(answers) 
+
+  }catch(err) {
+    res.send(err)
+  }
+
+})
 
 module.exports = router
