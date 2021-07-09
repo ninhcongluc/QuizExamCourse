@@ -3,12 +3,12 @@
     <h4>Exam Test Topic: {{ courses.name }}</h4>
     <p id="time">Times: {{ courses.total_time }}'</p>
 
-    <template v-for="(question, index) in questions" :key="question.id">
-      <h3 v-if="questionId == index + 1">
+    <template v-for="(question, index) in questions" :key="question.id" >
+      <h3 v-if="question.id == questionId">
         Q{{ index + 1 }}. {{ question.content }}
       </h3>
     </template>
-    <template v-for="answer in answers" :key="answer.id">
+    <template  v-for="answer in answers" :key="answer.id">
       <div class="answer" v-if="answer.questionId == questionId">
         <button id="btnAnswer">{{ answer.content }}</button>
       </div>
@@ -38,12 +38,20 @@ export default {
         total_time: 0,
         valid: 0,
       },
-      questions: null,
+      questions: {
+        id: 0,
+        type: "",
+        content: "",
+        correct_answer: "",
+        course_id: 0
+      },
       answers: null,
-      questionId: 1,
+      questionId: this.courseId*5-4,
+  
     };
   },
   async mounted() {
+    this.questionId = 1
     const resQuestion = await axios.get(`/questions/${this.courseId}`);
     this.questions = resQuestion.data;
     const resCourse = await axios.get(`/courses/${this.courseId}`);
@@ -54,19 +62,19 @@ export default {
   },
   methods: {
     handleQ1() {
-      this.questionId = 1;
+      this.questionId =  this.courseId*5-4;
     },
     handleQ2() {
-      this.questionId = 2;
+      this.questionId = this.courseId*5-4 + 1;
     },
     handleQ3() {
-      this.questionId = 3;
+      this.questionId = this.courseId*5-4 + 2;
     },
     handleQ4() {
-      this.questionId = 4;
+      this.questionId = this.courseId*5-4 + 3;
     },
     handleQ5() {
-      this.questionId = 5;
+      this.questionId = this.courseId*5-4 + 4;
     },
   },
 };
@@ -80,6 +88,7 @@ export default {
   height: 520px;
 
 }
+
 
 #btnAnswer {
   width: 600px;

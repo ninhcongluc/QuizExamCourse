@@ -2,15 +2,15 @@
   <div>
     <table id="courses">
       <tr>
-        <th>Id</th>
+        <th>#</th>
         <th>Name</th>
         <th>Descript</th>
         <th>Time</th>
         <th>Valid</th>
         <th>Exam</th>
       </tr>
-      <tr v-for="course in courses" :key="course.id">
-        <td>{{ course.id }}</td>
+      <tr v-for="(course,index) in courses" :key="course.id">
+        <td>{{  index+1 }}</td>
         <td>{{ course.name }}</td>
         <td>{{ course.descript }}</td>
         <td>{{ course.total_time }}</td>

@@ -21,25 +21,25 @@ const findByUsername = (username) => {
     .first()
 }
 
-const update = async (id, username, password , email, fullname, admin, position) => {
+const update = async (id, username, password, email, fullname, admin, position) => {
   await User.query()
-    .patch({username: username, password: password, email: email, fullname: fullname, admin: admin, position: position})
+    .patch({ username: username, password: password, email: email, fullname: fullname, admin: admin, position: position })
     .where('id', '=', id)
 }
 
-const deleteUser = async(id) => {
+const deleteUser = async (id) => {
   await User.query()
-  .delete()
-  .where('id', '=', id);
+    .delete()
+    .where('id', '=', id);
 }
 const addOne = (username, password, email, fullname, position, admin) => {
   return User.query().insert({
-      username: username,
-      password: password,
-      email: email,
-      fullname: fullname,
-      position: position,
-      admin: admin,
+    username: username,
+    password: password,
+    email: email,
+    fullname: fullname,
+    position: position,
+    admin: admin,
   })
 }
 
