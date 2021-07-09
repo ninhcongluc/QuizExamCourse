@@ -13,7 +13,7 @@
         <button id="btnAnswer">{{ answer.content }}</button>
       </div>
     </template>
-    <button id="submitBtn" v-if="questionId == 5">Submit</button>
+    <button id="submitBtn" v-if="questionId%5==0">Submit</button>
     <div class="tab">
       <button class="id_question" @click="handleQ1">1</button>
       <button class="id_question" @click="handleQ2">2</button>
@@ -51,7 +51,7 @@ export default {
     };
   },
   async mounted() {
-    this.questionId = 1
+    this.questionId = this.courseId*5-4
     const resQuestion = await axios.get(`/questions/${this.courseId}`);
     this.questions = resQuestion.data;
     const resCourse = await axios.get(`/courses/${this.courseId}`);
@@ -86,6 +86,7 @@ export default {
   margin-top: 60px;
   width: 650px;
   height: 520px;
+
 
 }
 
