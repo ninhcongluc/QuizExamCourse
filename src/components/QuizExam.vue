@@ -6,7 +6,6 @@
     <template v-for="(question, index) in questions" :key="question.id">
       <h3 v-if="question.id == questionId">
         Q{{ index + 1 }}. {{ question.content }}
-        {{ result.mark }}
       </h3>
     </template>
     <template v-for="answer in answers" :key="answer.id">

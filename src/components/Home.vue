@@ -18,7 +18,9 @@
           <a href="/course"><i class="fas fa-quran"> Course</i></a>
         </li>
         <li>
-          <a :href="'/detail/'+ userID"><i class="fas fa-question-circle"> Quiz Detail</i></a>
+          <a :href="'/detail/' + userID"
+            ><i class="fas fa-question-circle"> Quiz Detail</i></a
+          >
         </li>
         <li>
           <a @click="handleLogout"><i class="fas fa-sign-in-alt"> Logout</i></a>
@@ -26,14 +28,18 @@
       </ul>
     </div>
   </div>
+
+  <img src="../assets/nobita.jpg" alt="img" />
 </template>
+
+
  
  
     
 
 
 <script>
- import axios from "axios";
+import axios from "axios";
 
 export default {
   name: "Home",
@@ -44,7 +50,7 @@ export default {
         username: "",
         password: "",
       },
-      userID: 0
+      userID: 0,
     };
   },
   async created() {
@@ -138,7 +144,7 @@ label #bar {
 label #cancel {
   z-index: 1111;
   left: -195px;
-  top: 175px;
+  top: 180px;
   font-size: 30px;
   color: #0a5275;
   padding: 4px 9px;
@@ -165,5 +171,10 @@ small {
   font-size: 24px;
   color: transparent;
   text-shadow: 0 0 0.5px rgba(223, 26, 26, 0.5);
+}
+img {
+  width: 512px;
+  height: 512px;
+  margin-left: 40%
 }
 </style>
