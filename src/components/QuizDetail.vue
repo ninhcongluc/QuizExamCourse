@@ -1,0 +1,82 @@
+<template>
+  <div class="container">
+    <h3>Your Test Exam History <i class="fas fa-history"></i></h3>
+    <template v-for="rs in results" :key="rs.id">
+      <div class="content">
+          <p id="date">Date : {{rs.date}}</p>
+          <p id="course_id">CourseID: {{rs.cId}}</p>
+          <p id="mark">Mark: {{rs.mark}}/100</p>
+          <p class="status" v-if="rs.status == 1">Status: <small id="passed">PASSED</small></p>
+          <p class="status" v-if="rs.status != 1">Status: <small id="not_passed">NOT PASS</small> </p>
+
+      </div>
+    </template>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+export default {
+  name: "QuizDetail",
+  data() {
+    return {
+      userID: this.$route.params.id,
+      results: null,
+    };
+  },
+  created() {
+    //user is not authorized
+    if (localStorage.getItem("token") === null) {
+      this.$router.push("/");
+    }
+  },
+  async mounted() {
+    const datas = await axios.get(`/detail/${this.userID}`);
+    this.results = datas.data;
+  },
+};
+</script>
+
+<style scoped>
+.content {
+  margin-top: 30px;
+  width: 700px;
+  height: 80px;
+  border: 1px solid black;
+  background-color: rgb(223, 202, 202);
+}
+#date {
+    color : rgb(20, 20, 230)
+   
+}
+#course_id { 
+    color : rgb(190, 82, 142);
+    
+}
+
+
+#mark { 
+    margin-left:500px ;
+    margin-top: -80px;
+    color:rgb(133, 133, 133)
+}
+.status { 
+    margin-left:500px ;
+    margin-top: 30px;
+}
+ #passed { 
+    color: rgb(66, 223, 66);
+    font-size: 20px;
+    font-style: inherit;
+}
+#not_passed {
+    color: red;
+    font-size: 20px;
+    font-style: inherit;
+}
+
+h3 { 
+    background-color: beige;
+    color: tomato;
+}
+</style>

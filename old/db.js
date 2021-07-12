@@ -13,12 +13,6 @@ const knex = Knex({
 Model.knex(knex)
 
 
-class User extends Model {
-  static get tableName() {
-    return 'users'
-  }
-}
-
 class Answer extends Model {
   static get tableName() {
     return 'answers'
@@ -28,7 +22,7 @@ class Answer extends Model {
 class Question extends Model {
   static get tableName() {
     return 'questions'
-  };
+  }
   static relationMappings = {
     answers: {
       relation: Model.HasManyRelation,
@@ -41,10 +35,23 @@ class Question extends Model {
   }
 }
 
+class Result extends Model {
+  static get tableName() {
+    return 'results'
+  }
+  $beforeInsert() {
+    this.date = new Date().toISOString();
+  }
+
+
+
+}
+
+
 class Course extends Model {
   static get tableName() {
     return 'courses'
-  };
+  }
   static relationMappings = {
     questions: {
       relation: Model.HasManyRelation,
@@ -54,18 +61,46 @@ class Course extends Model {
         to: 'questions.course_id'
       }
     },
-    answers : {
+    answers: {
       relation: Model.HasManyRelation,
       modelClass: Answer,
       join: {
         from: 'courses.id',
         to: 'answers.courseId'
       }
+    },
+    results: {
+      relation: Model.HasManyRelation,
+      modelClass: Result,
+      join: {
+        from: 'courses.id',
+        to: 'results.cId'
+      }
+    }
+  }
+
+}
+
+class User extends Model {
+  static get tableName() {
+    return 'users'
+  }
+  static relationMappings = {
+    results: {
+      relation: Model.HasManyRelation,
+      modelClass: Result,
+      join: {
+        from: 'users.id',
+        to: 'results.uId'
+      }
     }
   }
 }
 
+//id, rs, date
+
 async function createTables() {
+  console.log('run created table')
 
   const hasUserTable = await knex.schema.hasTable('users')
   if (!hasUserTable) {
@@ -111,6 +146,17 @@ async function createTables() {
       table.integer('courseId').references('id').inTable('courses')
     })
   }
+  const hasResultTable = await knex.schema.hasTable('results')
+  if (!hasResultTable) {
+    await knex.schema.createTable('results', table => {
+      table.increments('id').primary()
+      table.integer('mark')
+      table.integer('status')
+      table.string('date')
+      table.integer('uId').references('id').inTable('users')
+      table.integer('cId').references('id').inTable('courses')
+    })
+  }
 
 
 }
@@ -123,5 +169,6 @@ module.exports = {
   Answer,
   User,
   Course,
-  Question
+  Question,
+  Result
 }

@@ -1,11 +1,14 @@
 <template>
-   <span><small><i class="fas fa-users-cog"></i> {{userInformation.username}}</small></span>
+  <span
+    ><small
+      ><i class="fas fa-users-cog"></i> {{ userInformation.username }}</small
+    ></span
+  >
   <div class="home">
     <input type="checkbox" id="check" />
     <label for="check">
       <i class="fas fa-bars" id="bar"></i>
       <i class="fas fa-times" id="cancel"></i>
-
     </label>
 
     <div class="sidebar">
@@ -15,16 +18,14 @@
           <a href="/course"><i class="fas fa-quran"> Course</i></a>
         </li>
         <li>
-          <a href="#"><i class="fas fa-question-circle"> Quiz Detail</i></a>
+          <a :href="'/detail/'+ userID"><i class="fas fa-question-circle"> Quiz Detail</i></a>
         </li>
         <li>
           <a @click="handleLogout"><i class="fas fa-sign-in-alt"> Logout</i></a>
         </li>
       </ul>
-      
     </div>
   </div>
-
 </template>
  
  
@@ -32,29 +33,35 @@
 
 
 <script>
-// import axios from "axios";
+ import axios from "axios";
 
 export default {
   name: "Home",
   data() {
     return {
       courses: [],
-      userInformation : {
-        username : "",
-        password : ""
-      }
-
+      userInformation: {
+        username: "",
+        password: "",
+      },
+      userID: 0
     };
   },
-  created() {
+  async created() {
     //user is not authorized
     if (localStorage.getItem("token") === null) {
       this.$router.push("/");
-    }
-    else { 
+    } else {
       // console.log(localStorage.getItem('data'))
-      this.userInformation = JSON.parse(localStorage.getItem('data'))
-      console.log(this.userInformation)
+      this.userInformation = JSON.parse(localStorage.getItem("data"));
+
+      const rs = await axios.get("http://localhost:8000/users");
+      const users = rs.data;
+      for (let i = 0; i < users.length; i++) {
+        if (users[i].username === this.userInformation.username) {
+          this.userID = users[i].id;
+        }
+      }
     }
   },
   methods: {
@@ -131,7 +138,7 @@ label #bar {
 label #cancel {
   z-index: 1111;
   left: -195px;
-  top: 185px;
+  top: 175px;
   font-size: 30px;
   color: #0a5275;
   padding: 4px 9px;
@@ -152,13 +159,11 @@ label #cancel {
   left: 195px;
 }
 
- small { 
-   margin-left: 80%;
-   font-style: bold;
-   font-size: 24px;
-    color: transparent;
-   text-shadow: 0 0 0.5px rgba(223, 26, 26, 0.5);
-
+small {
+  margin-left: 80%;
+  font-style: bold;
+  font-size: 24px;
+  color: transparent;
+  text-shadow: 0 0 0.5px rgba(223, 26, 26, 0.5);
 }
-
 </style>

@@ -13,6 +13,8 @@ import UpdateCourse from "./components/UpdateCourse.vue"
 import QuizExam from "./components/QuizExam.vue"
 import AddQuestion from "./components/AddQuestion.vue"
 import AddAnswer from "./components/AddAnswer.vue"
+import DetailResult from "./components/DetailResult.vue"
+import QuizDetail from "./components/QuizDetail.vue"
 
 
 const routes = [
@@ -86,6 +88,16 @@ const routes = [
     path: "/admin/add_answer",
     name: "AddAnswer",
     component: AddAnswer
+  },
+  {
+    path: "/course/result",
+    name: "DetailResult",
+    component: DetailResult
+  },
+  {
+    path: "/detail/:id",
+    name: "QuizDetail",
+    component: QuizDetail
   }
 ];
 

@@ -5,10 +5,11 @@ const usersService = require('./userService')
 const courseSevrvice = require('./courseService')
 const questionService = require('./questionService')
 const answerService = require('./answerService')
+const resultService = require('./resultService')
 const jwt = require('jsonwebtoken')
 const SECRET_KEY = 'Doraemon'
 
-const { Question } = require('./db')
+const { Question, Result } = require('./db')
 const { Answer } = require('./db')
 
 
@@ -135,38 +136,6 @@ const hashPromise = (password, saltRounds) => {
 }
 
 
-router.head('/auth', (req, res) => {
-  const authHeader = req.headers.authorization
-
-  if (!authHeader) {
-    res.sendStatus(401)
-    return
-  }
-
-  const token = authHeader.substring('Bearer '.length)
-
-  jwt.verify(token, SECRET_KEY, (err, payload) => {
-    if (err) {
-      console.error(err)
-      res.sendStatus(401)
-      return
-    }
-    res.sendStatus(200)
-  })
-})
-
-
-function verifyJwt(token) {
-  return new Promise((resolve, reject) => {
-    jwt.verify(token, SECRET_KEY, (err, payload) => {
-      if (err) {
-        reject(err)
-      } else {
-        resolve(payload)
-      }
-    })
-  })
-}
 // course 
 router.get('/courses', async (_, res) => {
   const courses = await courseSevrvice.findAll().catch(e => { console.error(e) })
@@ -199,7 +168,7 @@ router.put('/courses/update', async (req, res) => {
   res.send(course)
 })
 
-router.delete('/courses/delete/:id',async(req,res) =>{
+router.delete('/courses/delete/:id',async(req) =>{
   await courseSevrvice.deleteCourse(req.params.id)
 } )
 
@@ -239,6 +208,26 @@ router.get('/answers/:id', async(req,res) => {
     const id = req.params.id
     const answers = await Answer.query().where('courseId', id)
      res.send(answers) 
+
+  }catch(err) {
+    res.send(err)
+  }
+
+})
+
+router.post('/results', async(req,res) => { 
+  const result = req.body
+  console.log(result)
+  const rs = await resultService.addOne(result.mark, result.status, result.userID, result.courseID).catch(e => { console.error(e) })
+  res.send(rs)
+   
+})
+
+router.get('/detail/:id', async(req,res) => {
+  try {
+    const id = req.params.id
+    const results = await Result.query().where('uId', id)
+     res.send(results) 
 
   }catch(err) {
     res.send(err)
