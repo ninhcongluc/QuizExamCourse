@@ -115,7 +115,7 @@ export default {
     handleAnswer(answer) {
       console.log(answer);
       for (let i = 0; i < this.corrects.length; i++) {
-        if (this.corrects[i] === answer) {
+        if (this.corrects[i] === answer && this.result.mark <= 80) {
           this.result.mark += 20;
         }
       }

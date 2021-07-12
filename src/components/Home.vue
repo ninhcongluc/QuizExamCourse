@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <img src="../assets/nobita.jpg" alt="img" />
+  <img src="../assets/doraemon.jpg" alt="img" />
 </template>
 
 
@@ -173,8 +173,8 @@ small {
   text-shadow: 0 0 0.5px rgba(223, 26, 26, 0.5);
 }
 img {
-  width: 512px;
-  height: 512px;
-  margin-left: 40%
+  width: 640px;
+  height: 360px;
+  margin-left: 30%
 }
 </style>

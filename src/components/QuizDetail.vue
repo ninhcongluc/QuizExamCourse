@@ -10,6 +10,9 @@
           <p class="status" v-if="rs.status != 1">Status: <small id="not_passed">NOT PASS</small> </p>
 
       </div>
+      <div class="link">
+        <a id="back_link" href="/course">Keep taking the test</a>
+      </div>
     </template>
   </div>
 </template>
@@ -54,6 +57,12 @@ export default {
     
 }
 
+#back_link {
+    color: blueviolet;
+}
+.link { 
+    margin-top: 10px;
+}
 
 #mark { 
     margin-left:500px ;
