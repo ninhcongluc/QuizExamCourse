@@ -235,4 +235,17 @@ router.get('/detail/:id', async(req,res) => {
 
 })
 
+
+router.get('/admin/answers/:id', async(req,res) => {
+  try {
+    const id = req.params.id
+    const answers = await Answer.query().where('questionId', id)
+     res.send(answers) 
+
+  }catch(err) {
+    res.send(err)
+  }
+
+})
+
 module.exports = router

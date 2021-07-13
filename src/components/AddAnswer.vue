@@ -12,16 +12,6 @@
           placeholder="Content"
         />
       </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Question ID</label>
-        <input
-          type="text"
-          v-model="answers.questionId"
-          class="form-control"
-          id="exampleInputPassword1"
-          placeholder="QuestionID"
-        />
-      </div>
 
       <button type="submit" class="btn btn-primary">Create</button>
     </form>

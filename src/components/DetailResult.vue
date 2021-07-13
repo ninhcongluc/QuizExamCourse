@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   name: "DetailResult",
   data() {
@@ -18,7 +18,7 @@ export default {
         username: "",
         password: "",
       },
-      userID : 0
+      userID: 0,
     };
   },
   async created() {
@@ -27,16 +27,15 @@ export default {
       this.$router.push("/");
     }
 
-     this.userInformation = JSON.parse(localStorage.getItem('data'))
+    this.userInformation = JSON.parse(localStorage.getItem("data"));
 
-     const rs = await axios.get("http://localhost:8000/users");
-     const users = rs.data
-     for(let i = 0; i < users.length; i++ ) {
-       if(users[i].username === this.userInformation.username) {
-         this.userID = users[i].id
-       }
-
-     }
+    const rs = await axios.get("http://localhost:8000/users");
+    const users = rs.data;
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].username === this.userInformation.username) {
+        this.userID = users[i].id;
+      }
+    }
   },
   methods: {
     showPageResult() {

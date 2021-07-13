@@ -15,6 +15,10 @@ import AddQuestion from "./components/AddQuestion.vue"
 import AddAnswer from "./components/AddAnswer.vue"
 import DetailResult from "./components/DetailResult.vue"
 import QuizDetail from "./components/QuizDetail.vue"
+import ManageQA from "./components/ManageQA.vue"
+import ManageAnswer from "./components/ManageAnswer.vue"
+
+
 
 
 const routes = [
@@ -98,6 +102,16 @@ const routes = [
     path: "/detail/:id",
     name: "QuizDetail",
     component: QuizDetail
+  },
+  {
+    path: "/admin/qa/:id",
+    name: "ManageQA",
+    component: ManageQA
+  },
+  {
+    path: "/admin/answer/:id",
+    name: "ManageAnswer",
+    component: ManageAnswer
   }
 ];
 

@@ -10,6 +10,8 @@
             <a href="/admin/courses">Click here to manage courses</a>
 
         </div>
+
+
    
  </div>
 

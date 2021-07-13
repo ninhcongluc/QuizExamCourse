@@ -5,8 +5,8 @@
       <span><small class="smallText">To mange courses by admin</small></span>
     </div>
     <a href="/admin/add_course"><i class="fas fa-book"> Create Course</i></a>
-    <table class="table table-bordered table-dark">
-      <thead>
+    <table class="table table-bordered table">
+      <thead >
         <tr>
           <th scope="col">#</th>
           <th scope="col">Name</th>
@@ -29,6 +29,9 @@
             </button>
             <button @click="handleDelete(course.id)" id="btnDelete">
               Delete
+            </button>
+            <button @click="manageQuestion(course.id)" id="btnQA">
+              Q/A
             </button>
           </td>
         </tr>
@@ -61,6 +64,9 @@ export default {
       await axios.delete(`/courses/delete/${id}`);
       this.$router.push("/admin/courses");
     },
+    manageQuestion(id) {
+      this.$router.push(`/admin/qa/${id}`);
+    }
   },
   mounted() {
     axios
@@ -94,8 +100,17 @@ export default {
   color: white;
 }
 
+#btnQA {
+  background-color: #bf7d78;
+  border-radius: 15%;
+  margin-left: 10px;
+  color: white;
+
+}
+
 .smallText {
   font-style: italic;
+
 }
 
 h1 {
