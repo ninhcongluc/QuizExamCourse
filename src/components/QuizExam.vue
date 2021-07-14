@@ -4,25 +4,20 @@
     <p id="time">Times: {{ courses.total_time }}'</p>
 
     <template v-for="(question, index) in questions" :key="question.id">
-      <h3 v-if="question.id == questionId">
-        Q{{ index + 1 }}. {{ question.content }}
-      </h3>
+      <br>
+      <h3>Q{{ index + 1 }}. {{ question.content }}</h3>
+      <template v-for="answer in answers" :key="answer.id">
+        <div class="answer" v-if="answer.questionId == question.id">
+          <button class="btnAnswer" @click="handleAnswer(answer.content)">
+            {{ answer.content }}
+          </button>
+        </div>
+      </template>
     </template>
-    <template v-for="answer in answers" :key="answer.id">
-      <div class="answer" v-if="answer.questionId == questionId">
-        <button class="btnAnswer" @click="handleAnswer(answer.content)">
-          {{ answer.content }}
-        </button>
-      </div>
-    </template>
-    <button id="submitBtn" @click="handleSubmitExam" v-if="questionId % 5 == 0">Submit</button>
-    <div class="tab">
-      <button class="id_question" @click="handleQ1">1</button>
-      <button class="id_question" @click="handleQ2">2</button>
-      <button class="id_question" @click="handleQ3">3</button>
-      <button class="id_question" @click="handleQ4">4</button>
-      <button class="id_question" @click="handleQ5">5</button>
-    </div>
+    <button id="submitBtn" @click="handleSubmitExam" >
+      Submit
+    </button>
+    <div class="tab"></div>
   </div>
 </template>
 
@@ -48,20 +43,19 @@ export default {
         course_id: 0,
       },
       answers: null,
-      questionId: this.courseId * 5 - 4,
       corrects: [],
       mark: 0,
       countClick: 0,
-      userInformation : {
-        username : "",
-        password : ""
+      userInformation: {
+        username: "",
+        password: "",
       },
       result: {
-        mark : 0,
+        mark: 0,
         status: 0,
         userID: 0,
-        courseID: this.$route.params.id
-      }
+        courseID: this.$route.params.id,
+      },
     };
   },
   async created() {
@@ -69,22 +63,18 @@ export default {
     if (localStorage.getItem("token") === null) {
       this.$router.push("/");
     }
-    this.userInformation = JSON.parse(localStorage.getItem('data'))
+    this.userInformation = JSON.parse(localStorage.getItem("data"));
 
-     const rs = await axios.get("http://localhost:8000/users");
-     const users = rs.data
-     for(let i = 0; i < users.length; i++ ) {
-       if(users[i].username === this.userInformation.username) {
-         this.result.userID = users[i].id
-       }
-
-     }
+    const rs = await axios.get("http://localhost:8000/users");
+    const users = rs.data;
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].username === this.userInformation.username) {
+        this.result.userID = users[i].id;
+      }
+    }
     //  console.log(this.userID)
-
-
   },
   async mounted() {
-    this.questionId = this.courseId * 5 - 4;
     const resQuestion = await axios.get(`/questions/${this.courseId}`);
     this.questions = resQuestion.data;
     for (let i = 0; i < resQuestion.data.length; i++) {
@@ -97,21 +87,6 @@ export default {
     this.answers = resAnswer.data;
   },
   methods: {
-    handleQ1() {
-      this.questionId = this.courseId * 5 - 4;
-    },
-    handleQ2() {
-      this.questionId = this.courseId * 5 - 4 + 1;
-    },
-    handleQ3() {
-      this.questionId = this.courseId * 5 - 4 + 2;
-    },
-    handleQ4() {
-      this.questionId = this.courseId * 5 - 4 + 3;
-    },
-    handleQ5() {
-      this.questionId = this.courseId * 5 - 4 + 4;
-    },
     handleAnswer(answer) {
       console.log(answer);
       for (let i = 0; i < this.corrects.length; i++) {
@@ -122,14 +97,14 @@ export default {
     },
 
     async handleSubmitExam() {
-      if(this.result.mark >= 80) {
-        this.result.status = 1
+      if (this.result.mark >= 80) {
+        this.result.status = 1;
       }
       const response = await axios.post("results", this.result);
       console.log(response);
-      console.log(this.result.courseID)
+      console.log(this.result.courseID);
       this.$router.push("/course/result");
-    }
+    },
   },
 };
 </script>
@@ -199,7 +174,7 @@ h4 {
   background-color: red;
 }
 
-.btnAnswer:hover{ 
-   background-color: rgb(100, 187, 100);
+.btnAnswer:hover {
+  background-color: rgb(100, 187, 100);
 }
 </style>
