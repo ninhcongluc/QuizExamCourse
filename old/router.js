@@ -28,7 +28,7 @@ router.post('/register', async (req, res) => {
 
   const hash = await hashPromise(body.password, saltRounds)
   const addUser = await usersService.addOne(body.username, hash, body.email, body.fullName, body.position, 0)
-  
+
   res.send(addUser)
 
 
@@ -62,14 +62,15 @@ router.put('/users/update', async (req, res) => {
   const user = req.body
   const saltRounds = 10
   const hash = await hashPromise(user.password, saltRounds)
-   await usersService.update( user.id,user.username, hash, user.email, user.fullname, user.admin, user.position).catch(e => { console.error(e) })
+  await usersService.update(user.id, user.username, hash, user.email, user.fullname, user.admin, user.position).catch(e => { console.error(e) })
   res.send(user)
 })
 
 //delete user 
-router.delete('/users/delete/:id',async(req,res) =>{
-   await usersService.deleteUser(req.params.id)
-} )
+router.delete('/users/delete/:id', async (req, res) => {
+  const response = await usersService.deleteUser(req.params.id)
+  res.send(response)
+})
 
 
 
@@ -84,7 +85,7 @@ router.post('/login', (req, res) => {
       }
 
       bcrypt.compare(user.password, result.password, function (err, fit) {
-        if(err){
+        if (err) {
           return res.status(401).json({
             tite: 'login failed',
             error: 'invalid credentials'
@@ -109,13 +110,13 @@ router.post('/login', (req, res) => {
 })
 
 // get a user by id
-router.get('/users/:id', async(req,res) => {
+router.get('/users/:id', async (req, res) => {
   try {
     const id = req.params.id
     const user = await usersService.findOne(id)
-    res.send(user) 
+    res.send(user)
 
-  }catch(err) {
+  } catch (err) {
     res.send(err)
   }
 
@@ -150,13 +151,13 @@ router.post('/courses', async (req, res) => {
 })
 // get a course by id
 
-router.get('/courses/:id', async(req,res) => {
+router.get('/courses/:id', async (req, res) => {
   try {
     const id = req.params.id
     const course = await courseSevrvice.findOne(id)
-     res.send(course) 
+    res.send(course)
 
-  }catch(err) {
+  } catch (err) {
     res.send(err)
   }
 
@@ -164,38 +165,39 @@ router.get('/courses/:id', async(req,res) => {
 
 router.put('/courses/update', async (req, res) => {
   const course = req.body
-   await courseSevrvice.update(course.id, course.name, course.descript, course.total_time, course.valid ).catch(e => { console.error(e) })
+  await courseSevrvice.update(course.id, course.name, course.descript, course.total_time, course.valid).catch(e => { console.error(e) })
   res.send(course)
 })
 
-router.delete('/courses/delete/:id',async(req) =>{
-  await courseSevrvice.deleteCourse(req.params.id)
-} )
-
-
-
-
-router.post('/questions', async(req, res) => {
-  const q = req.body
-  const row = await questionService.insertOne(q.type, q.content, q.correct_answer,q.course_id).catch(e => { console.error(e) })
-  res.send(row)
+router.delete('/courses/delete/:id', async (req,res) => {
+  const response = await courseSevrvice.deleteCourse(req.params.id)
+  res.send(response)
 })
 
 
-router.get('/questions/:id', async(req,res) => {
+
+
+router.post('/questions', async (req, res) => {
+  const q = req.body
+  const row = await questionService.insertOne(q.type, q.content, q.correct_answer, q.course_id).catch(e => { console.error(e) })
+  res.send(row)
+})
+
+// get question by course
+router.get('/questions/:id', async (req, res) => {
   try {
     const id = req.params.id
     const questions = await Question.query().where('course_id', id)
-     res.send(questions) 
+    res.send(questions)
 
-  }catch(err) {
+  } catch (err) {
     res.send(err)
   }
 
 })
 
 
-router.post('/answers', (async(req,res) => {
+router.post('/answers', (async (req, res) => {
   const ans = req.body
   console.log(ans)
   const data = await answerService.insertOne(ans)
@@ -203,49 +205,79 @@ router.post('/answers', (async(req,res) => {
 }))
 
 
-router.get('/answers/:id', async(req,res) => {
+router.get('/answers/:id', async (req, res) => {
   try {
     const id = req.params.id
     const answers = await Answer.query().where('courseId', id)
-     res.send(answers) 
+    res.send(answers)
 
-  }catch(err) {
+  } catch (err) {
     res.send(err)
   }
 
 })
 
-router.post('/results', async(req,res) => { 
+router.post('/results', async (req, res) => {
   const result = req.body
   console.log(result)
   const rs = await resultService.addOne(result.mark, result.status, result.userID, result.courseID).catch(e => { console.error(e) })
   res.send(rs)
-   
+
 })
 
-router.get('/detail/:id', async(req,res) => {
+router.get('/detail/:id', async (req, res) => {
   try {
     const id = req.params.id
     const results = await Result.query().where('uId', id)
-     res.send(results) 
+    res.send(results)
 
-  }catch(err) {
+  } catch (err) {
     res.send(err)
   }
 
 })
 
 
-router.get('/admin/answers/:id', async(req,res) => {
+router.get('/admin/answers/:id', async (req, res) => {
   try {
     const id = req.params.id
     const answers = await Answer.query().where('questionId', id)
-     res.send(answers) 
+    res.send(answers)
 
-  }catch(err) {
+  } catch (err) {
     res.send(err)
   }
 
+})
+
+// delete question
+router.delete('/admin/delete_question/:id',async(req,res) =>{
+  const response = await questionService.deleteQuestion(req.params.id)
+  res.send(response)
+})
+
+// get question by id
+router.get('/question/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const questions = await Question.query().findById(id)
+    res.send(questions)
+  } catch (err) {
+    res.send(err)
+  }
+})
+
+// update question
+router.put('/question/update', async (req, res) => {
+  const question = req.body
+  console.log(question)
+  await questionService.update(question.id, question.type, question.content, question.correct_answer, question.course_id).catch(e => { console.error(e) })
+  res.send(question)
+})
+// delete answers of question
+router.delete('/admin/delete_answers/:id',async(req,res) =>{
+  const response = await answerService.deleteAnswersByQId(req.params.id)
+  res.send(response)
 })
 
 module.exports = router

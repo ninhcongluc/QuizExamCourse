@@ -33,17 +33,6 @@
         />
       </div>
 
-      <div class="form-group">
-        <label for="exampleInputPassword1">CourseID</label>
-        <input
-          type="text"
-          v-model="course_id"
-          class="form-control"
-          id="exampleInputPassword1"
-          placeholder="CourseId"
-        />
-      </div>
-
       <button type="submit" class="btn btn-primary">Create</button>
     </form>
   </div>
@@ -64,7 +53,7 @@ export default {
       type: "",
       content: "",
       correct_answer: "",
-      course_id: 0
+      course_id: this.$route.params.id
     };
   },
 
@@ -76,8 +65,8 @@ export default {
         correct_answer: this.correct_answer,
         course_id: this.course_id
       });
-      console.log(response);
-      this.$router.push("/admin/add_question");
+      console.log(response)
+      this.$router.push(`/admin/qa/${this.course_id}`);
     },
   },
 };

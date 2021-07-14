@@ -45,11 +45,15 @@
 import axios from "axios";
 export default {
   name: "ManageUser",
-  created() {
-    //user is not authorized
+   created() {
     if (localStorage.getItem("token") === null) {
       this.$router.push("/");
     }
+    
+  },
+  async mounted() {
+    const response = await axios.get("http://localhost:8000/users");
+    this.users = response.data;
   },
   data() {
     return {
@@ -57,19 +61,14 @@ export default {
       selectedId: 0,
     };
   },
-  async mounted() {
-    const response = await axios.get("http://localhost:8000/users");
-    this.users = response.data;
-  },
   methods: {
     async handleUpdate(id) {
       this.$router.push(`/admin/update_user/${id}`);
     },
 
     async handleDelete(id) {
-      const res = await axios.delete(`/users/delete/${id}`);
-      console.log(res);
-      this.$router.push("/admin/courses");
+      await axios.delete(`/users/delete/${id}`);
+      this.$router.go("/admin/users");
     },
   },
 };

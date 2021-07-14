@@ -62,7 +62,7 @@ export default {
 
     async handleDelete(id) {
       await axios.delete(`/courses/delete/${id}`);
-      this.$router.push("/admin/courses");
+      this.$router.go("/admin/courses");
     },
     manageQuestion(id) {
       this.$router.push(`/admin/qa/${id}`);

@@ -6,10 +6,16 @@ const insertOne = async (answer) => {
 }
 
 
+const deleteAnswersByQId = async (id) => {
+    await Answer.query()
+        .delete()
+        .where('questionId', '=', id);
+}
 
 
 
 module.exports = {
-    insertOne
+    insertOne,
+    deleteAnswersByQId
 
 }
