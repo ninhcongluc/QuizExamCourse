@@ -1,61 +1,71 @@
 <template>
-<div class="container">
-  <h3>Manage Answers Page</h3>
-   <p class="smallText">This page to manage answers in question</p>
-  <br>
-  <a href="/admin/add_answer">Create Answer</a>
-  <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Content</th>
-      <th scope="col">Tools</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="(a,index) in answers" :key="a.id">
-      <th scope="row">{{index + 1}}</th>
-      <td>{{a.content}}</td>
-
-      <td>
-        <button id="editBtn" class="btn"><i class="fas fa-pen"></i></button>
-        <button id="deleteBtn" class="btn"><i class="far fa-trash-alt"></i></button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-</div>
-
+  <div class="container">
+    <h3>Manage Answers Page</h3>
+    <p class="smallText">This page to manage answers in question</p>
+    <br />
+    <a :href="'/admin/add_answer/' + questionId">Create Answer</a>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Content</th>
+          <th scope="col">Tools</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(a, index) in answers" :key="a.id">
+          <th scope="row">{{ index + 1 }}</th>
+          <td>{{ a.content }}</td>
+          <td>
+            <button @click="handleUpdate(a.id)" id="editBtn" class="btn"><i class="fas fa-pen"></i></button>
+            <button @click="handleDelete(a.id)" id="deleteBtn" class="btn">
+              <i class="far fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <a :href="'/admin/qa/' + courseId"
+      ><i class="fas fa-backward"></i> Back to QA Page</a
+    >
+  </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   name: "ManageQA",
   data() {
     return {
       questionId: this.$route.params.id,
-      answers : null
-
-    }
+      answers: null,
+      courseId: 0,
+    };
   },
   async mounted() {
-      const resAnswers = await axios.get(`/admin/answers/${this.questionId}`);
-      this.answers = resAnswers.data
-
+    const resAnswers = await axios.get(`/admin/answers/${this.questionId}`);
+    this.answers = resAnswers.data;
+    this.courseId = this.answers[0].courseId;
   },
-  methods : {
-  }
+  methods: {
+    handleUpdate(id) {
+      this.$router.push(`/admin/update_answer/${id}`);
+    },
+
+    async handleDelete(id) {
+       await axios.delete(`/admin/delete_answer/${id}`);
+       this.$router.go(`/admin/answer/${this.questionId}`);
+    },
+  },
 };
 </script>
 <style scoped>
-.btn { 
+.btn {
   margin-left: 5px;
   border: 1px solid rgb(119, 70, 70);
 }
 
-#editBtn { 
+#editBtn {
   background: rgb(106, 207, 106);
 }
 
@@ -73,6 +83,4 @@ h3 {
   text-align: center;
   font-size: 14px;
 }
-
-
 </style>

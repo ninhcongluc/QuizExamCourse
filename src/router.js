@@ -18,7 +18,7 @@ import QuizDetail from "./components/QuizDetail.vue"
 import ManageQA from "./components/ManageQA.vue"
 import ManageAnswer from "./components/ManageAnswer.vue"
 import UpdateQuestion from "./components/UpdateQuestion.vue"
-
+import UpdateAnswer from "./components/UpdateAnswer.vue"
 
 
 
@@ -90,7 +90,7 @@ const routes = [
     component: AddQuestion
   },
   {
-    path: "/admin/add_answer",
+    path: "/admin/add_answer/:id",
     name: "AddAnswer",
     component: AddAnswer
   },
@@ -118,6 +118,11 @@ const routes = [
     path: "/admin/update_question/:id",
     name: "UpdateQuestion",
     component: UpdateQuestion
+  },
+  {
+    path: "/admin/update_answer/:id",
+    name: "UpdateAnswer",
+    component: UpdateAnswer
   }
 ];
 

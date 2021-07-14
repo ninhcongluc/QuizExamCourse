@@ -2,22 +2,23 @@
   <div class="container">
     <h4>Exam Test Topic: {{ courses.name }}</h4>
     <p id="time">Times: {{ courses.total_time }}'</p>
-
+    <h6>Rest: {{timerCount}}s </h6>
     <template v-for="(question, index) in questions" :key="question.id">
-      <br>
-      <h3>Q{{ index + 1 }}. {{ question.content }}</h3>
+
+      <h3 v-if="index+1 == indexPage">Q{{ index + 1 }}. {{ question.content }}</h3>
       <template v-for="answer in answers" :key="answer.id">
-        <div class="answer" v-if="answer.questionId == question.id">
+        <div class="answer" v-if="answer.questionId == question.id && index+1 == indexPage ">
           <button class="btnAnswer" @click="handleAnswer(answer.content)">
             {{ answer.content }}
           </button>
         </div>
       </template>
     </template>
-    <button id="submitBtn" @click="handleSubmitExam" >
-      Submit
-    </button>
-    <div class="tab"></div>
+    <button id="submitBtn" @click="handleSubmitExam">Submit</button>
+    <br>
+    <div class="tab" v-for="num in numOfQuestion" :key="num">
+      <button id="index" @click="handleIndexPage(num)">{{num}}</button>
+    </div>
   </div>
 </template>
 
@@ -44,7 +45,6 @@ export default {
       },
       answers: null,
       corrects: [],
-      mark: 0,
       countClick: 0,
       userInformation: {
         username: "",
@@ -56,6 +56,10 @@ export default {
         userID: 0,
         courseID: this.$route.params.id,
       },
+      timerCount : 0,
+      numOfQuestion : 0,
+      indexPage : 0
+
     };
   },
   async created() {
@@ -75,13 +79,18 @@ export default {
     //  console.log(this.userID)
   },
   async mounted() {
+    this.indexPage = 1;
+    let countQuestion = 0;
     const resQuestion = await axios.get(`/questions/${this.courseId}`);
     this.questions = resQuestion.data;
     for (let i = 0; i < resQuestion.data.length; i++) {
       this.corrects.push(resQuestion.data[i].correct_answer);
+      countQuestion++;
     }
+    this.numOfQuestion = countQuestion;
     const resCourse = await axios.get(`/courses/${this.courseId}`);
     this.courses = resCourse.data;
+    this.timerCount = this.courses.total_time * 60;
 
     const resAnswer = await axios.get(`/answers/${this.courseId}`);
     this.answers = resAnswer.data;
@@ -90,12 +99,11 @@ export default {
     handleAnswer(answer) {
       console.log(answer);
       for (let i = 0; i < this.corrects.length; i++) {
-        if (this.corrects[i] === answer && this.result.mark <= 80) {
-          this.result.mark += 20;
+        if (this.corrects[i] === answer && this.result.mark <= (100-100/this.numOfQuestion)) {
+          this.result.mark += Math.round(100/this.numOfQuestion);
         }
       }
     },
-
     async handleSubmitExam() {
       if (this.result.mark >= 80) {
         this.result.status = 1;
@@ -105,7 +113,28 @@ export default {
       console.log(this.result.courseID);
       this.$router.push("/course/result");
     },
+    handleIndexPage(num) {
+      this.indexPage = num;
+    }
   },
+  watch: {
+    timerCount: {
+       handler(value) {
+
+                    if (value > 0) {
+                        setTimeout(() => {
+                            this.timerCount--;     
+                            if(this.timerCount == 0) {
+                              this.handleSubmitExam();
+                            }               
+                        }, 1000);
+                    }
+
+                },
+                immediate: true // This ensures the watcher is triggered upon creation
+
+    }
+}
 };
 </script>
 
@@ -126,16 +155,6 @@ export default {
   background-color: rgb(255, 248, 238);
 }
 
-.tab {
-  margin-top: 25px;
-  margin-left: 15px;
-}
-
-.id_question {
-  margin-left: 7px;
-  border-radius: 20px;
-  background-color: rgb(110, 94, 167);
-}
 
 h3 {
   font-weight: 200;
@@ -176,5 +195,24 @@ h4 {
 
 .btnAnswer:hover {
   background-color: rgb(100, 187, 100);
+}
+
+.tab { 
+  display: inline-block;
+  margin-top: 10px;
+  margin-left: 12px;
+
+}
+
+#index { 
+  background: cadetblue;
+  color: white;
+  border-radius: 12px;
+  border: white;
+  padding: 6px 10px;
+}
+
+h6 { 
+  color: red;
 }
 </style>

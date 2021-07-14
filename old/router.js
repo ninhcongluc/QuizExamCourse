@@ -169,11 +169,21 @@ router.put('/courses/update', async (req, res) => {
   res.send(course)
 })
 
+// delte course (delete course , question of course , answer of course)
 router.delete('/courses/delete/:id', async (req,res) => {
   const response = await courseSevrvice.deleteCourse(req.params.id)
   res.send(response)
 })
-
+// question of courseID
+router.delete('/questions/delete/:id', async (req,res) => {
+  const response = await questionService.deleteQuestionByCourseID(req.params.id)
+  res.send(response)
+})
+// answers by courseID
+router.delete('/answers/delete/:id', async (req,res) => {
+  const response = await answerService.deleteAnswerByCourseID(req.params.id)
+  res.send(response)
+})
 
 
 
@@ -196,15 +206,7 @@ router.get('/questions/:id', async (req, res) => {
 
 })
 
-
-router.post('/answers', (async (req, res) => {
-  const ans = req.body
-  console.log(ans)
-  const data = await answerService.insertOne(ans)
-  res.send(data)
-}))
-
-
+// get answers by courseId
 router.get('/answers/:id', async (req, res) => {
   try {
     const id = req.params.id
@@ -237,7 +239,7 @@ router.get('/detail/:id', async (req, res) => {
 
 })
 
-
+// get answers by question id
 router.get('/admin/answers/:id', async (req, res) => {
   try {
     const id = req.params.id
@@ -279,5 +281,36 @@ router.delete('/admin/delete_answers/:id',async(req,res) =>{
   const response = await answerService.deleteAnswersByQId(req.params.id)
   res.send(response)
 })
+// insert answer to question
+router.post('/answers', async (req, res) => {
+  const answer = req.body
+  const row = await answerService.insertOne(answer).catch(e => { console.error(e) })
+  res.send(row)
+})
 
+
+// get answer by answerID
+
+router.get('/answer/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const answer = await Answer.query().findById(id)
+    res.send(answer)
+  } catch (err) {
+    res.send(err)
+  }
+})
+
+// update answer by admin
+router.put('/answer/update', async (req, res) => {
+  const answer = req.body
+  await answerService.update(answer).catch(e => { console.error(e) })
+  res.send(answer)
+})
+
+// delete answer by id
+router.delete('/admin/delete_answer/:id',async(req,res) =>{
+  const response = await answerService.deleteAnswerById(req.params.id)
+  res.send(response)
+})
 module.exports = router

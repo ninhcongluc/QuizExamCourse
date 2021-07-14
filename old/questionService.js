@@ -22,6 +22,12 @@ const deleteQuestion = async (id) => {
         .where('id', '=', id);
 }
 
+const deleteQuestionByCourseID = async (id) => {
+    await Question.query()
+        .delete()
+        .where('course_id', '=', id);
+}
+
 const update = async (id, type, content, correct_answer, course_id) => {
     const x = await Question.query()
         .patch({type:type, content: content, correct_answer: correct_answer, course_id: course_id})
@@ -34,6 +40,7 @@ const update = async (id, type, content, correct_answer, course_id) => {
 module.exports = {
     insertOne,
     findListQuestion,
+    deleteQuestionByCourseID,
     deleteQuestion,
     update
 }

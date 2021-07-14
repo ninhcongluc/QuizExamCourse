@@ -49,6 +49,8 @@
 
       <button type="submit" class="btn btn-primary">Create</button>
     </form>
+
+    <a href="/admin/courses"><i class="fas fa-backward"></i> Back to Course</a>
   </div>
 </template>
   
@@ -80,7 +82,7 @@ export default {
         valid: this.valid,
       });
       console.log(response);
-      this.$router.push("/admin/courses");
+      this.$router.go("/admin/add_course");
     },
   },
 };

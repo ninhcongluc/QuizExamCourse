@@ -35,6 +35,7 @@
 
       <button type="submit" class="btn btn-primary">Create</button>
     </form>
+      <a :href="'/admin/qa/' + course_id"><i class="fas fa-backward"></i> Back to QA Page</a>
   </div>
 </template>
   
@@ -66,7 +67,7 @@ export default {
         course_id: this.course_id
       });
       console.log(response)
-      this.$router.push(`/admin/qa/${this.course_id}`);
+      this.$router.go(`/admin/qa/${this.course_id}`);
     },
   },
 };

@@ -6,15 +6,16 @@
         <label for="exampleInputPassword1">Content</label>
         <input
           type="text"
-          v-model="answers.content"
+          v-model="answer.content"
           class="form-control"
           id="exampleInputPassword1"
           placeholder="Content"
         />
       </div>
-
       <button type="submit" class="btn btn-primary">Create</button>
     </form>
+
+    <a :href="'/admin/answer/' + answer.questionId"><i class="fas fa-backward"></i> Back to Answers</a>
   </div>
 </template>
   
@@ -30,18 +31,22 @@ export default {
   },
   data() {
     return {
-      answers: {
+      answer: {
         content: "",
-        questionId: 0,
+        questionId: this.$route.params.id,
+        courseId: 0,
       },
     };
   },
-
+  async mounted() {
+    const response = await axios.get(`/question/${this.answer.questionId}`);
+    this.answer.courseId = response.data.course_id;
+  },
   methods: {
     async handleSubmit() {
-      const response = axios.post("/answers", this.answers);
+      const response = axios.post("/answers", this.answer);
       console.log(response);
-      this.$router.push("/admin/add_answer");
+      this.$router.go(`/admin/answer/${this.answer.questionId}`);
     },
   },
 };

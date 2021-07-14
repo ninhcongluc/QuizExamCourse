@@ -33,6 +33,7 @@
         </tr>
       </tbody>
     </table>
+    <a href="/admin/courses"><i class="fas fa-backward"></i> Back to Course Page</a>
   </div>
 </template>
 
