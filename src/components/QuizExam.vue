@@ -2,12 +2,16 @@
   <div class="container">
     <h4>Exam Test Topic: {{ courses.name }}</h4>
     <p id="time">Times: {{ courses.total_time }}'</p>
-    <h6>Rest: {{timerCount}}s </h6>
+    <h6>Rest: {{ timerCount }}s</h6>
     <template v-for="(question, index) in questions" :key="question.id">
-
-      <h3 v-if="index+1 == indexPage">Q{{ index + 1 }}. {{ question.content }}</h3>
+      <h3 v-if="index + 1 == indexPage">
+        Q{{ index + 1 }}. {{ question.content }}
+      </h3>
       <template v-for="answer in answers" :key="answer.id">
-        <div class="answer" v-if="answer.questionId == question.id && index+1 == indexPage ">
+        <div
+          class="answer"
+          v-if="answer.questionId == question.id && index + 1 == indexPage"
+        >
           <button class="btnAnswer" @click="handleAnswer(answer.content)">
             {{ answer.content }}
           </button>
@@ -15,9 +19,9 @@
       </template>
     </template>
     <button id="submitBtn" @click="handleSubmitExam">Submit</button>
-    <br>
+    <br />
     <div class="tab" v-for="num in numOfQuestion" :key="num">
-      <button id="index" @click="handleIndexPage(num)">{{num}}</button>
+      <button id="index" @click="handleIndexPage(num)">{{ num }}</button>
     </div>
   </div>
 </template>
@@ -56,10 +60,9 @@ export default {
         userID: 0,
         courseID: this.$route.params.id,
       },
-      timerCount : 0,
-      numOfQuestion : 0,
-      indexPage : 0
-
+      timerCount: 0,
+      numOfQuestion: 0,
+      indexPage: 0,
     };
   },
   async created() {
@@ -83,6 +86,7 @@ export default {
     let countQuestion = 0;
     const resQuestion = await axios.get(`/questions/${this.courseId}`);
     this.questions = resQuestion.data;
+    this.shuffle(this.questions)
     for (let i = 0; i < resQuestion.data.length; i++) {
       this.corrects.push(resQuestion.data[i].correct_answer);
       countQuestion++;
@@ -94,13 +98,20 @@ export default {
 
     const resAnswer = await axios.get(`/answers/${this.courseId}`);
     this.answers = resAnswer.data;
+     this.shuffle(this.answers)
   },
   methods: {
+    shuffle(array) {
+      array.sort(() => Math.random() - 0.5);
+    },
     handleAnswer(answer) {
       console.log(answer);
       for (let i = 0; i < this.corrects.length; i++) {
-        if (this.corrects[i] === answer && this.result.mark <= (100-100/this.numOfQuestion)) {
-          this.result.mark += Math.round(100/this.numOfQuestion);
+        if (
+          this.corrects[i] === answer &&
+          this.result.mark <= 100 - 100 / this.numOfQuestion
+        ) {
+          this.result.mark += Math.round(100 / this.numOfQuestion);
         }
       }
     },
@@ -115,26 +126,23 @@ export default {
     },
     handleIndexPage(num) {
       this.indexPage = num;
-    }
+    },
   },
   watch: {
     timerCount: {
-       handler(value) {
-
-                    if (value > 0) {
-                        setTimeout(() => {
-                            this.timerCount--;     
-                            if(this.timerCount == 0) {
-                              this.handleSubmitExam();
-                            }               
-                        }, 1000);
-                    }
-
-                },
-                immediate: true // This ensures the watcher is triggered upon creation
-
-    }
-}
+      handler(value) {
+        if (value > 0) {
+          setTimeout(() => {
+            this.timerCount--;
+            if (this.timerCount == 0) {
+              this.handleSubmitExam();
+            }
+          }, 1000);
+        }
+      },
+      immediate: true, // This ensures the watcher is triggered upon creation
+    },
+  },
 };
 </script>
 
@@ -154,7 +162,6 @@ export default {
   letter-spacing: 2px;
   background-color: rgb(255, 248, 238);
 }
-
 
 h3 {
   font-weight: 200;
@@ -197,14 +204,13 @@ h4 {
   background-color: rgb(100, 187, 100);
 }
 
-.tab { 
+.tab {
   display: inline-block;
   margin-top: 10px;
   margin-left: 12px;
-
 }
 
-#index { 
+#index {
   background: cadetblue;
   color: white;
   border-radius: 12px;
@@ -212,7 +218,7 @@ h4 {
   padding: 6px 10px;
 }
 
-h6 { 
+h6 {
   color: red;
 }
 </style>
