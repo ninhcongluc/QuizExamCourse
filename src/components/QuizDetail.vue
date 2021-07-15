@@ -4,7 +4,10 @@
     <template v-for="rs in results" :key="rs.id">
       <div class="content">
         <p id="date">Date : {{ rs.date }}</p>
-        <p id="course_id">CourseID: {{ rs.cId }}</p>
+        <template v-for="c in courses" :key="c.id"> 
+             <p id="course_id" v-if="rs.cId == c.id">Course: {{ c.name }}</p>  
+        </template>
+    
         <p id="mark">Mark: {{ rs.mark }}/100</p>
         <p class="status" v-if="rs.status == 1">
           Status: <small id="passed">PASSED</small>
@@ -28,6 +31,7 @@ export default {
     return {
       userID: this.$route.params.id,
       results: null,
+      courses : null
     };
   },
   created() {
@@ -39,6 +43,8 @@ export default {
   async mounted() {
     const datas = await axios.get(`/detail/${this.userID}`);
     this.results = datas.data;
+    const courses =  await axios.get(`/courses`);
+    this.courses = courses.data
   },
 };
 </script>

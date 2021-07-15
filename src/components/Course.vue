@@ -13,7 +13,7 @@
         <td>{{  index+1 }}</td>
         <td>{{ course.name }}</td>
         <td>{{ course.descript }}</td>
-        <td>{{ course.total_time }}</td>
+        <td>{{ course.total_time }} phút</td>
         <td>{{ course.valid }}</td>
         <td id="exam"><button @click="handleStart(course.id)">Start</button></td>
       </tr>

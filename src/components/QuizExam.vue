@@ -114,6 +114,7 @@ export default {
           this.result.mark += Math.round(100 / this.numOfQuestion);
         }
       }
+      this.indexPage +=1;
     },
     async handleSubmitExam() {
       if (this.result.mark >= 80) {
@@ -202,8 +203,8 @@ h4 {
 
 .btnAnswer:hover {
   background-color: rgb(100, 187, 100);
+   border: 1px solid blue;
 }
-
 .tab {
   display: inline-block;
   margin-top: 10px;
