@@ -33,7 +33,9 @@
         </tr>
       </tbody>
     </table>
-    <a href="/admin/courses"><i class="fas fa-backward"></i> Back to Course Page</a>
+    <a href="/admin/courses"
+      ><i class="fas fa-backward"></i> Back to Course Page</a
+    >
   </div>
 </template>
 
@@ -61,9 +63,16 @@ export default {
     },
 
     async handleDelete(id) {
-      await axios.delete(`/admin/delete_question/${id}`);
-      await axios.delete(`/admin/delete_answers/${id}`);
-      this.$router.go(`/admin/qa/${this.courseID}`);
+      let isDelete = confirm(
+        "Are you sure to delete? (Can lose a lot of data)"
+      );
+      if (isDelete) {
+        await axios.delete(`/admin/delete_question/${id}`);
+        await axios.delete(`/admin/delete_answers/${id}`);
+        this.$router.go(`/admin/qa/${this.courseID}`);
+      } else {
+        this.$router.go(`/admin/qa/${this.courseID}`);
+      }
     },
   },
 };

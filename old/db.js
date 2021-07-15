@@ -132,8 +132,9 @@ async function createTables() {
       table.increments('id').primary()
       table.string('name')
       table.string('descript')
-      table.int('total_time')
-      table.int('valid')
+      table.integer('total_time')
+      table.integer('valid')
+      table.integer('status')
     })
   }
 

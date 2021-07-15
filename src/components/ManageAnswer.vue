@@ -17,7 +17,9 @@
           <th scope="row">{{ index + 1 }}</th>
           <td>{{ a.content }}</td>
           <td>
-            <button @click="handleUpdate(a.id)" id="editBtn" class="btn"><i class="fas fa-pen"></i></button>
+            <button @click="handleUpdate(a.id)" id="editBtn" class="btn">
+              <i class="fas fa-pen"></i>
+            </button>
             <button @click="handleDelete(a.id)" id="deleteBtn" class="btn">
               <i class="far fa-trash-alt"></i>
             </button>
@@ -53,8 +55,15 @@ export default {
     },
 
     async handleDelete(id) {
-       await axios.delete(`/admin/delete_answer/${id}`);
-       this.$router.go(`/admin/answer/${this.questionId}`);
+      let isDelete = confirm(
+        "Are you sure to delete? (Can lose a lot of data)"
+      );
+      if (isDelete) {
+        await axios.delete(`/admin/delete_answer/${id}`);
+        this.$router.go(`/admin/answer/${this.questionId}`);
+      } else {
+        this.$router.go(`/admin/answer/${this.questionId}`);
+      }
     },
   },
 };

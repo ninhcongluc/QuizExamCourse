@@ -45,11 +45,10 @@
 import axios from "axios";
 export default {
   name: "ManageUser",
-   created() {
+  created() {
     if (localStorage.getItem("token") === null) {
       this.$router.push("/");
     }
-    
   },
   async mounted() {
     const response = await axios.get("http://localhost:8000/users");
@@ -67,8 +66,16 @@ export default {
     },
 
     async handleDelete(id) {
-      await axios.delete(`/users/delete/${id}`);
-      this.$router.go("/admin/users");
+      let isDelete = confirm(
+        "Are you sure to delete? (Can lose a lot of data)"
+      );
+      if (isDelete) {
+        await axios.delete(`/users/delete/${id}`);
+        this.$router.go("/admin/users");
+      }
+      else {
+           this.$router.go("/admin/users");
+      }
     },
   },
 };

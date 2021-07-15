@@ -6,7 +6,7 @@
     </div>
     <a href="/admin/add_course"><i class="fas fa-book"> Create Course</i></a>
     <table class="table table-bordered table">
-      <thead >
+      <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">Name</th>
@@ -30,9 +30,7 @@
             <button @click="handleDelete(course.id)" id="btnDelete">
               Delete
             </button>
-            <button @click="manageQuestion(course.id)" id="btnQA">
-              Q/A
-            </button>
+            <button @click="manageQuestion(course.id)" id="btnQA">Q/A</button>
           </td>
         </tr>
       </tbody>
@@ -61,14 +59,22 @@ export default {
     },
 
     async handleDelete(id) {
-      await axios.delete(`/courses/delete/${id}`);
-      await axios.delete(`/questions/delete/${id}`);
-      await axios.delete(`/answers/delete/${id}`);
-      this.$router.go("/admin/courses");
+      let isDelete = confirm(
+        "Are you sure to delete? (Can lose a lot of data)"
+      );
+      if (isDelete) {
+        await axios.delete(`/courses/delete/${id}`);
+        await axios.delete(`/questions/delete/${id}`);
+        await axios.delete(`/answers/delete/${id}`);
+        this.$router.go("/admin/courses");
+      }
+      else {
+         this.$router.go("/admin/courses");
+      }
     },
     manageQuestion(id) {
       this.$router.push(`/admin/qa/${id}`);
-    }
+    },
   },
   mounted() {
     axios
@@ -107,12 +113,10 @@ export default {
   border-radius: 15%;
   margin-left: 10px;
   color: white;
-
 }
 
 .smallText {
   font-style: italic;
-
 }
 
 h1 {
