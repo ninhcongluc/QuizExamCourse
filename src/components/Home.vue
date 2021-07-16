@@ -30,11 +30,22 @@
   </div>
 
   <div id="award">
-    <h4><i class="fas fa-trophy"></i> Top 10 students with high scores in the course <i class="fas fa-trophy"></i></h4>
+    <h4>
+      <i class="fas fa-trophy"></i> Ranking of members with high achievements<i class="fas fa-trophy"></i>
+    </h4>
     <br />
-    <select id="select_tag" name="listCourse" @change="onChange($event)" v-model="course_id">
+    <select
+      id="select_tag"
+      name="listCourse"
+      @change="onChange($event)"
+      v-model="course_id"
+    >
       <template v-for="course in courses" :key="course.id">
-        <option class="select_value" v-if="course.status == 1" :value="course.id">
+        <option
+          class="select_value"
+          v-if="course.status == 1"
+          :value="course.id"
+        >
           {{ course.name }}
         </option>
       </template>
@@ -42,23 +53,25 @@
     <table id="table_data" class="table">
       <thead>
         <tr>
-          <th scope="col">STT</th>
+         
           <th scope="col">Full Name</th>
           <th scope="col">Date</th>
           <th scope="col">Mark</th>
-          <th scope="col">Time</th>
+          <th scope="col">Completed Time</th>
         </tr>
       </thead>
       <tbody>
         <template v-for="result in results" :key="result.id">
-          <tr  v-if="course_id == result.cId">
-            <th   scope="col">{{count_index}}</th>
+          <tr v-if="course_id == result.cId">
+            
             <template v-for="user in users" :key="user.id">
               <td v-if="user.id == result.uId">{{ user.fullname }}</td>
             </template>
-            <td>{{ result.date.substr(0,10) }}</td>
+            <td>{{ result.date.substr(0, 10) }}</td>
             <td>{{ result.mark }} Đ</td>
-            <td>{{ new Date(result.time * 1000).toISOString().substr(11, 8) }}</td>
+            <td>
+              {{ new Date(result.time * 1000).toISOString().substr(11, 8) }}
+            </td>
           </tr>
         </template>
       </tbody>
@@ -82,7 +95,7 @@ export default {
       },
       userID: 0,
       course_id: 0,
-      count_index : 1
+      count_index: 1,
     };
   },
   async created() {
@@ -113,6 +126,8 @@ export default {
     // get all users
     const listUser = await axios.get("/users");
     this.users = listUser.data;
+    // if equal mark, sort by time 
+    this.sortArrByTime(this.results)
   },
   methods: {
     async handleLogout() {
@@ -122,6 +137,17 @@ export default {
     onChange(event) {
       console.log(event.target.value);
       this.count_index = 1;
+    },
+    sortArrByTime(arr) {
+      for (let i = 0; i < arr.length - 1; i++) {
+        for (let j = 0; j < arr.length - i - 1; j++) {
+          if (arr[j].time > arr[j+1].time && arr[j].mark == arr[j+1].mark) {
+            let temp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = temp;
+          }
+        }
+      }
     },
   },
 };
@@ -235,14 +261,13 @@ small {
 #select_tag {
   width: 100px;
   height: 30px;
-  background: rgb(224, 186, 219);
-  color: rgb(190, 63, 63);
-  border-radius: 5px ;
+  background: rgb(120, 184, 214);
+  color: rgb(187, 34, 105);
+  border-radius: 5px;
 }
 
 h4 {
-   letter-spacing: 1.2px;
-   color: rgb(138, 58, 138);
+  letter-spacing: 1.2px;
+  color: rgb(60, 197, 151);
 }
-
 </style>
