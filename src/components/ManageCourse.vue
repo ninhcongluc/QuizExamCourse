@@ -13,6 +13,7 @@
           <th scope="col">Descript</th>
           <th scope="col">Total Time</th>
           <th scope="col">Valid</th>
+          <th scope="col">Status</th>
           <th scope="col">Tools</th>
         </tr>
       </thead>
@@ -23,6 +24,8 @@
           <td>{{ course.descript }}</td>
           <td>{{ course.total_time }} phút</td>
           <td>{{ course.valid }}</td>
+          <td v-if="course.status == 0">Đóng</td>
+          <td v-else>Mở</td>
           <td class="btn">
             <button @click="handleUpdate(course.id)" id="btnUpdate">
               Update

@@ -6,7 +6,7 @@
         <label for="exampleInputEmail1">Course Name</label>
         <input
           type="text"
-          v-model="name"
+          v-model="course.name"
           class="form-control"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
@@ -20,7 +20,7 @@
         <label for="exampleInputPassword1">Description</label>
         <input
           type="text"
-          v-model="descript"
+          v-model="course.descript"
           class="form-control"
           id="exampleInputPassword1"
           placeholder="Descript about course"
@@ -30,7 +30,7 @@
         <label for="exampleInputPassword1">Total Time</label>
         <input
           type="text"
-          v-model="total_time"
+          v-model="course.total_time"
           class="form-control"
           id="exampleInputPassword1"
           placeholder="Time to complete Course"
@@ -40,11 +40,18 @@
         <label for="exampleInputPassword1">Valid</label>
         <input
           type="text"
-          v-model="valid"
+          v-model="course.valid"
           class="form-control"
           id="exampleInputPassword1"
           placeholder="Maximum number of participations"
         />
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Status</label>
+        <select class="custom-select" id="inputGroupSelect01" v-model="course.status">
+          <option value="0" selected>Đóng</option>
+          <option value="1">Mở</option>
+        </select>
       </div>
 
       <button type="submit" class="btn btn-primary">Create</button>
@@ -66,21 +73,20 @@ export default {
   },
   data() {
     return {
-      name: "",
-      descript: "",
-      total_time: 0,
-      valid: 0,
+      course : {
+        name : "",
+        descript : "",
+        total_time : 0,
+        valid: 0,
+        status : 0
+      }
     };
   },
 
   methods: {
     async handleSubmit() {
-      const response = axios.post("/courses", {
-        name: this.name,
-        descript: this.descript,
-        total_time: this.total_time,
-        valid: this.valid,
-      });
+      console.log(this.course.status)
+      const response = axios.post("/courses", this.course);
       console.log(response);
       this.$router.go("/admin/add_course");
     },

@@ -24,6 +24,13 @@
           <label for="">Valid</label>
           <input type="text" name="valid" v-model="course.valid" class="form-control"   />
         </div>
+        <div class="form-group">
+        <label for="exampleInputPassword1">Status</label>
+        <select class="custom-select" id="inputGroupSelect01" v-model="course.status">
+          <option value="0" >Đóng</option>
+          <option value="1" :selected = "course.status == 1" >Mở</option>
+        </select>
+      </div>
         <button class="btn btn-primary btn-block">Update Course</button>
       </form>
     </div>
@@ -47,6 +54,7 @@ export default {
           descript: "",
           total_time : 0,
           valid : 0,
+          status: 0
       },
       id: this.$route.params.id ,
 

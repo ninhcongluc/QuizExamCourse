@@ -134,6 +134,7 @@ async function createTables() {
       table.string('descript')
       table.integer('total_time')
       table.integer('valid')
+      table.integer('status')
     })
   }
 

@@ -2,7 +2,9 @@
   <div>
     <ul class="nav justify-content-center">
       <li class="nav-item">
-        <a class="nav-link active" href="/home"><i class="fas fa-hand-point-left"></i> Back Home</a>
+        <a class="nav-link active" href="/home"
+          ><i class="fas fa-hand-point-left"></i> Back Home</a
+        >
       </li>
     </ul>
     <table id="courses">
@@ -14,16 +16,18 @@
         <th>Valid</th>
         <th>Exam</th>
       </tr>
-      <tr v-for="(course, index) in courses" :key="course.id">
-        <td>{{ index + 1 }}</td>
-        <td>{{ course.name }}</td>
-        <td>{{ course.descript }}</td>
-        <td>{{ course.total_time }} phút</td>
-        <td>{{ course.valid }}</td>
-        <td id="exam">
-          <button @click="handleStart(course.id)">Start</button>
-        </td>
-      </tr>
+      <template v-for="(course, index) in courses" :key="course.id">
+        <tr v-if="course.status == 1">
+          <td>{{ index + 1 }}</td>
+          <td>{{ course.name }}</td>
+          <td>{{ course.descript }}</td>
+          <td>{{ course.total_time }} phút</td>
+          <td>{{ course.valid }}</td>
+          <td id="exam">
+            <button @click="handleStart(course.id)">Start</button>
+          </td>
+        </tr>
+      </template>
     </table>
   </div>
 </template>
@@ -104,7 +108,6 @@ button:hover {
 }
 
 .nav-link {
-    color: #04aa6d;
-
+  color: #04aa6d;
 }
 </style>

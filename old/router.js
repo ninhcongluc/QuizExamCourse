@@ -145,7 +145,7 @@ router.get('/courses', async (_, res) => {
 
 router.post('/courses', async (req, res) => {
   const course = req.body
-  const row = await courseSevrvice.insertOne(course.name, course.descript, course.total_time, course.valid).catch(e => { console.error(e) })
+  const row = await courseSevrvice.insertOne(course.name, course.descript, course.total_time, course.valid, course.status).catch(e => { console.error(e) })
   res.send(row)
   console.log(row)
 })
@@ -165,7 +165,7 @@ router.get('/courses/:id', async (req, res) => {
 
 router.put('/courses/update', async (req, res) => {
   const course = req.body
-  await courseSevrvice.update(course.id, course.name, course.descript, course.total_time, course.valid).catch(e => { console.error(e) })
+  await courseSevrvice.update(course.id, course.name, course.descript, course.total_time, course.valid, course.status).catch(e => { console.error(e) })
   res.send(course)
 })
 
