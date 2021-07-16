@@ -4,6 +4,7 @@
       <h1>Manage Users</h1>
       <span><small class="smallText">To mange users by admin</small></span>
     </div>
+
     <a href="/admin/add_user"><i class="fas fa-users">Create User</i></a>
     <table class="table">
       <thead class="thead-dark">
@@ -38,6 +39,11 @@
         </tr>
       </tbody>
     </table>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link" href="/admin"><i class="fas fa-caret-square-left"></i> Admin Page</a>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -72,9 +78,8 @@ export default {
       if (isDelete) {
         await axios.delete(`/users/delete/${id}`);
         this.$router.go("/admin/users");
-      }
-      else {
-           this.$router.go("/admin/users");
+      } else {
+        this.$router.go("/admin/users");
       }
     },
   },

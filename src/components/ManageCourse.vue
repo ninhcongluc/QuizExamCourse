@@ -35,6 +35,13 @@
         </tr>
       </tbody>
     </table>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link" href="/admin"
+          ><i class="fas fa-caret-square-left"></i> Admin Page</a
+        >
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -67,9 +74,8 @@ export default {
         await axios.delete(`/questions/delete/${id}`);
         await axios.delete(`/answers/delete/${id}`);
         this.$router.go("/admin/courses");
-      }
-      else {
-         this.$router.go("/admin/courses");
+      } else {
+        this.$router.go("/admin/courses");
       }
     },
     manageQuestion(id) {

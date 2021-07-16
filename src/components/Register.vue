@@ -1,4 +1,24 @@
 <template>
+<nav id="navbar_1" class="navbar navbar-expand-lg navbar-light bg-light">
+  <a id="title" class="navbar-brand" href="/home">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Login<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/register">Sigup</a>
+      </li>
+    </ul>
+
+
+  </div>
+
+</nav>
   <div class="auth-wrapper">
     <div class="auth-inner">
       <form @submit.prevent="handleSubmit" action="">
@@ -106,5 +126,16 @@ export default {
   margin: 0;
   line-height: 1;
   padding-bottom: 20px;
+}
+
+#navbarSupportedContent {
+  margin-left: 85% ;
+  margin-right: 0px;
+}
+
+#title { 
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 23px;
+  margin-left:15px ;
 }
 </style>

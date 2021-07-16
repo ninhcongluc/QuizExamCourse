@@ -1,4 +1,9 @@
 <template>
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link active" href="/home"><i class="fas fa-hand-point-left"></i> Back Home</a>
+      </li>
+    </ul>
   <div class="container">
     <h3>Your Test Exam History <i class="fas fa-history"></i></h3>
     <template v-for="rs in results" :key="rs.id">
@@ -94,5 +99,10 @@ export default {
 h3 {
   background-color: beige;
   color: tomato;
+}
+
+.nav-link {
+  color: rgb(177, 102, 88);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 </style>

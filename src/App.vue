@@ -1,7 +1,5 @@
 <template>
   <div id="app" v-bind:class="currentTheme">
-    <Nav />
-    {{currentTheme}}
      <div class="theme-options" >
             <div v-bind:class="{'active':currentTheme==='theme-white'}"
              @click="switchTheme('theme-white')"  class="theme theme-white"></div>
@@ -17,17 +15,14 @@
              @click="switchTheme('theme-black')" class="theme theme-black"></div>
      </div>
      <router-view />
-   
   </div>
 </template>
-
 <script>
-import Nav from './components/Nav.vue'
 
 export default {
   name: "App",
   components : {
-    Nav
+
   },
   data() {
     return {
@@ -50,7 +45,7 @@ export default {
   
 }
 .theme-options {
-  margin-top: 60px;
+
   text-align: center;
  
   padding-right: 100px;

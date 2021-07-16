@@ -18,6 +18,10 @@
         </div>
       </template>
     </template>
+    <div v-if="indexPage == numOfQuestion + 1">
+      <h3>The results have been recorded, please press submit to see the results</h3>
+
+    </div>
     <button id="submitBtn" @click="handleSubmitExam">Submit</button>
     <br />
     <div class="tab" v-for="num in numOfQuestion" :key="num">
