@@ -222,7 +222,7 @@ router.get('/answers/:id', async (req, res) => {
 router.post('/results', async (req, res) => {
   const result = req.body
   console.log(result)
-  const rs = await resultService.addOne(result.mark, result.status, result.userID, result.courseID).catch(e => { console.error(e) })
+  const rs = await resultService.addOne(result.mark, result.status, result.time, result.userID, result.courseID).catch(e => { console.error(e) })
   res.send(rs)
 
 })
@@ -312,5 +312,11 @@ router.put('/answer/update', async (req, res) => {
 router.delete('/admin/delete_answer/:id',async(req,res) =>{
   const response = await answerService.deleteAnswerById(req.params.id)
   res.send(response)
+})
+
+// get results by mark desc
+router.get('/results', async(req, res) => {
+   const results = await resultService.getResultByMarkDescending()
+   res.send(results)
 })
 module.exports = router

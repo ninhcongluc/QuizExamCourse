@@ -9,6 +9,7 @@
     <template v-for="rs in results" :key="rs.id">
       <div class="content">
         <p id="date">Date : {{ rs.date }}</p>
+        <p id="time">Complete Time : {{ new Date(rs.time * 1000).toISOString().substr(11, 8) }}</p>
         <template v-for="c in courses" :key="c.id"> 
              <p id="course_id" v-if="rs.cId == c.id">Course: {{ c.name }}</p>  
         </template>
@@ -36,7 +37,7 @@ export default {
     return {
       userID: this.$route.params.id,
       results: null,
-      courses : null
+      courses : null,
     };
   },
   created() {
@@ -65,6 +66,10 @@ export default {
 #date {
   color: rgb(20, 20, 230);
 }
+#time {
+  margin-top: -20px;
+  color: rgb(199, 56, 56);
+}
 #course_id {
   color: rgb(190, 82, 142);
 }
@@ -78,7 +83,7 @@ export default {
 
 #mark {
   margin-left: 500px;
-  margin-top: -80px;
+  margin-top: -100px;
   color: rgb(133, 133, 133);
 }
 .status {

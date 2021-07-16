@@ -29,15 +29,43 @@
     </div>
   </div>
 
-  <img src="../assets/doraemon.jpg" alt="img" />
+  <div id="award">
+    <h4><i class="fas fa-trophy"></i> Top 10 students with high scores in the course <i class="fas fa-trophy"></i></h4>
+    <br />
+    <select id="select_tag" name="listCourse" @change="onChange($event)" v-model="course_id">
+      <template v-for="course in courses" :key="course.id">
+        <option class="select_value" v-if="course.status == 1" :value="course.id">
+          {{ course.name }}
+        </option>
+      </template>
+    </select>
+    <table id="table_data" class="table">
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Full Name</th>
+          <th scope="col">Date</th>
+          <th scope="col">Mark</th>
+          <th scope="col">Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template v-for="result in results" :key="result.id">
+          <tr  v-if="course_id == result.cId">
+            <th   scope="col">{{count_index}}</th>
+            <template v-for="user in users" :key="user.id">
+              <td v-if="user.id == result.uId">{{ user.fullname }}</td>
+            </template>
+            <td>{{ result.date.substr(0,10) }}</td>
+            <td>{{ result.mark }} Đ</td>
+            <td>{{ new Date(result.time * 1000).toISOString().substr(11, 8) }}</td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
 </template>
-
-
- 
- 
-    
-
-
+   
 <script>
 import axios from "axios";
 
@@ -45,12 +73,16 @@ export default {
   name: "Home",
   data() {
     return {
-      courses: [],
+      courses: null,
+      results: null,
+      users: null,
       userInformation: {
         username: "",
         password: "",
       },
       userID: 0,
+      course_id: 0,
+      count_index : 1
     };
   },
   async created() {
@@ -70,10 +102,26 @@ export default {
       }
     }
   },
+  async mounted() {
+    // get all courses
+    const listCourses = await axios.get("/courses");
+    this.courses = listCourses.data;
+    this.course_id = this.courses[0].id;
+    // get result by des
+    const listResults = await axios.get("/results");
+    this.results = listResults.data;
+    // get all users
+    const listUser = await axios.get("/users");
+    this.users = listUser.data;
+  },
   methods: {
     async handleLogout() {
       localStorage.clear();
       this.$router.push("/");
+    },
+    onChange(event) {
+      console.log(event.target.value);
+      this.count_index = 1;
     },
   },
 };
@@ -172,9 +220,29 @@ small {
   color: transparent;
   text-shadow: 0 0 0.5px rgba(223, 26, 26, 0.5);
 }
-img {
-  width: 640px;
-  height: 360px;
-  margin-left: 30%
+
+#award {
+  width: 50%;
+  height: 600px;
+  margin-left: 30%;
+  text-align: center;
 }
+
+#table_data {
+  margin-top: 20px;
+}
+
+#select_tag {
+  width: 100px;
+  height: 30px;
+  background: rgb(224, 186, 219);
+  color: rgb(190, 63, 63);
+  border-radius: 5px ;
+}
+
+h4 {
+   letter-spacing: 1.2px;
+   color: rgb(138, 58, 138);
+}
+
 </style>

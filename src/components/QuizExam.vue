@@ -61,6 +61,7 @@ export default {
       result: {
         mark: 0,
         status: 0,
+        time: 0,
         userID: 0,
         courseID: this.$route.params.id,
       },
@@ -142,6 +143,7 @@ export default {
         if (value > 0) {
           setTimeout(() => {
             this.timerCount--;
+            this.result.time++;
             if (this.timerCount == 0) {
               this.handleSubmitExam();
             }

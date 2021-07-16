@@ -6,7 +6,7 @@
     </div>
 
     <a href="/admin/add_user"><i class="fas fa-users">Create User</i></a>
-    <table class="table">
+    <table class="table table-bordered table">
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>

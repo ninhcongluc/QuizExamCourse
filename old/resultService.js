@@ -1,10 +1,11 @@
 const { Result } = require('./db')
 
 
-const addOne = async(mark, status, userId, courseId) => {
+const addOne = async(mark, status, time, userId, courseId) => {
     const res = await Result.query().insert({
         mark : mark,
         status: status,
+        time: time,
         uId: userId,
         cId: courseId
     })
@@ -16,7 +17,17 @@ const addOne = async(mark, status, userId, courseId) => {
 //     console.log("data : " ,  listResult)
 // }
 
+
+// get Result by score desc
+
+const getResultByMarkDescending =  async() => {
+    return Result.query()
+      .select('*')
+      .skipUndefined()
+      .orderBy('mark', 'DESC')
+  }
 module.exports = {
     addOne,
+    getResultByMarkDescending
 
 }

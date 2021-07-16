@@ -154,6 +154,7 @@ async function createTables() {
       table.integer('mark')
       table.integer('status')
       table.string('date')
+      table.integer('time')
       table.integer('uId').references('id').inTable('users')
       table.integer('cId').references('id').inTable('courses')
     })
