@@ -4,13 +4,10 @@
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
         <label for="exampleInputPassword1">Type</label>
-        <input
-          type="text"
-          v-model="type"
-          class="form-control"
-          id="exampleInputPassword1"
-          placeholder="type"
-        />
+        <select class="custom-select" id="inputGroupSelect01" v-model="type">
+          <option value="multiple choices" selected>multiple choices</option>
+          <option value="TF">TF</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Content</label>
@@ -35,7 +32,9 @@
 
       <button type="submit" class="btn btn-primary">Create</button>
     </form>
-      <a :href="'/admin/qa/' + course_id"><i class="fas fa-backward"></i> Back to QA Page</a>
+    <a :href="'/admin/qa/' + course_id"
+      ><i class="fas fa-backward"></i> Back to QA Page</a
+    >
   </div>
 </template>
   
@@ -51,10 +50,10 @@ export default {
   },
   data() {
     return {
-      type: "",
+      type: "multiple choices",
       content: "",
       correct_answer: "",
-      course_id: this.$route.params.id
+      course_id: this.$route.params.id,
     };
   },
 
@@ -64,9 +63,9 @@ export default {
         type: this.type,
         content: this.content,
         correct_answer: this.correct_answer,
-        course_id: this.course_id
+        course_id: this.course_id,
       });
-      console.log(response)
+      console.log(response);
       this.$router.go(`/admin/qa/${this.course_id}`);
     },
   },
