@@ -113,14 +113,17 @@ export default {
       for (let i = 0; i < this.corrects.length; i++) {
         if (
           this.corrects[i] === answer &&
-          this.result.mark <= 100 - 100 / this.numOfQuestion
+          this.result.mark < 100
         ) {
-          this.result.mark += Math.round(100 / this.numOfQuestion);
+          this.result.mark += (100 / this.numOfQuestion);
         }
+
       }
       this.indexPage +=1;
+      console.log(this.result.mark)
     },
     async handleSubmitExam() {
+      this.result.mark = Math.round(this.result.mark)
       if (this.result.mark >= 80) {
         this.result.status = 1;
       }

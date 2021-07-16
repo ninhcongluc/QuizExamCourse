@@ -24,8 +24,8 @@
           <td>{{ course.descript }}</td>
           <td>{{ course.total_time }} phút</td>
           <td>{{ course.valid }}</td>
-          <td v-if="course.status == 0">Đóng</td>
-          <td v-else>Mở</td>
+          <td id="close" v-if="course.status == 0">Close</td>
+          <td id="open" v-else>Open</td>
           <td class="btn">
             <button @click="handleUpdate(course.id)" id="btnUpdate">
               Update
@@ -134,5 +134,14 @@ h1 {
 }
 thead th {
   color: rgb(172, 72, 133);
+}
+
+#close {
+  color: red;
+ 
+}
+
+#open {
+  color: rgb(76, 158, 76);
 }
 </style>

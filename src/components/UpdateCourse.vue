@@ -27,8 +27,8 @@
         <div class="form-group">
         <label for="exampleInputPassword1">Status</label>
         <select class="custom-select" id="inputGroupSelect01" v-model="course.status">
-          <option value="0" >Đóng</option>
-          <option value="1" :selected = "course.status == 1" >Mở</option>
+          <option value="0" >Close</option>
+          <option value="1" :selected = "course.status == 1" >Open</option>
         </select>
       </div>
         <button class="btn btn-primary btn-block">Update Course</button>

@@ -49,8 +49,8 @@
       <div class="form-group">
         <label for="exampleInputPassword1">Status</label>
         <select class="custom-select" id="inputGroupSelect01" v-model="course.status">
-          <option value="0" selected>Đóng</option>
-          <option value="1">Mở</option>
+          <option value="0" selected>Close</option>
+          <option value="1">Open</option>
         </select>
       </div>
 
