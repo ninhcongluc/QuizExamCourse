@@ -7,7 +7,7 @@
 
     <a href="/admin/add_user"><i class="fas fa-users">Create User</i></a>
     <table class="table table-bordered table">
-      <thead class="thead-dark">
+      <thead s>
         <tr>
           <th scope="col">#</th>
           <th scope="col">Username</th>

@@ -110,6 +110,7 @@ export default {
       });
       console.log(response);
       this.$router.push("/admin/users");
+      alert("Add a user sucessfull")
     },
   },
 };

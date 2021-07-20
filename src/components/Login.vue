@@ -60,10 +60,12 @@
         </div>
         <label id="errPass" for=""></label>
         <button class="btn btn-primary btn-block">Login</button>
+        <button  class="btn btn-primary btn-block" @click="sigUpWithFacebook"><i class="fab fa-facebook"></i> Login with Facebook</button>
         <br />
         <a href="/register"
           ><i class="fas fa-user-plus"></i> Register to become a member</a
         >
+        <br>
       </form>
     </div>
   </div>
@@ -133,6 +135,10 @@ export default {
           );
       }
     },
+    signUpWithFacebook() {
+       
+
+    }
   },
 };
 </script>

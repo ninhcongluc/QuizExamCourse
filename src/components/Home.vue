@@ -51,10 +51,10 @@
       </template>
     </select>
     <table id="table_data" class="table">
-      <thead>
+      <thead class="table_header">
         <tr>
          
-          <th scope="col">Full Name</th>
+         <th scope="col">Full Name</th>
           <th scope="col">Date</th>
           <th scope="col">Mark</th>
           <th scope="col">Completed Time</th>
@@ -65,7 +65,7 @@
           <tr v-if="course_id == result.cId">
             
             <template v-for="user in users" :key="user.id">
-              <td v-if="user.id == result.uId">{{ user.fullname }}</td>
+              <td v-if="user.id == result.uId"><i class="fas fa-medal"></i> {{ user.fullname }}</td>
             </template>
             <td>{{ result.date.substr(0, 10) }}</td>
             <td>{{ result.mark }} Đ</td>
@@ -220,7 +220,7 @@ label #cancel {
   left: -195px;
   top: 110px;
   font-size: 30px;
-  color: #0a5275;
+  color: rgb(120, 184, 214);
   padding: 4px 9px;
   transition: all 0.5s ease;
   position: fixed;
@@ -268,6 +268,9 @@ small {
 
 h4 {
   letter-spacing: 1.2px;
-  color: rgb(60, 197, 151);
+  color: rgb(120, 184, 214);
+}
+.table_header {
+  background-color:rgb(120, 184, 214) ;
 }
 </style>
