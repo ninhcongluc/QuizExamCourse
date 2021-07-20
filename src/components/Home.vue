@@ -28,7 +28,7 @@
       </ul>
     </div>
   </div>
-
+ 
   <div id="award">
     <h4>
       <i class="fas fa-trophy"></i> Ranking of members with high achievements<i class="fas fa-trophy"></i>
@@ -76,6 +76,8 @@
         </template>
       </tbody>
     </table>
+     <img src="../assets/shiroemon.jpg" alt="">
+      <img src="../assets/kuroemon.jpg" alt="">
   </div>
 </template>
    
