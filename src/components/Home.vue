@@ -76,8 +76,6 @@
         </template>
       </tbody>
     </table>
-     <img src="../assets/shiroemon.jpg" alt="">
-      <img src="../assets/kuroemon.jpg" alt="">
   </div>
 </template>
    
