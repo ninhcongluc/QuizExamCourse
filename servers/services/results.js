@@ -1,4 +1,4 @@
-const { Result } = require('./db')
+const { Result } = require('../db')
 
 
 const addOne = async(mark, status, time, userId, courseId) => {
@@ -11,14 +11,6 @@ const addOne = async(mark, status, time, userId, courseId) => {
     })
     console.log(res)
 }
-
-// const findListResult = async(userID) => { 
-//     const listResult = await Result.query().where('uId', userID)
-//     console.log("data : " ,  listResult)
-// }
-
-
-// get Result by score desc
 
 const getResultByMarkDescending =  async() => {
     return Result.query()

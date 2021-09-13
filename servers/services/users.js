@@ -1,5 +1,5 @@
 
-const { User } = require('./db')
+const { User } = require('../db')
 
 const idExists = (id) => {
   return User.query().findById(id)

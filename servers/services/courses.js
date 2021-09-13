@@ -1,4 +1,4 @@
-const { Course } = require('./db')
+const { Course } = require('../db')
 
 const findAll = () => {
   return Course.query().execute()

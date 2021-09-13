@@ -1,23 +1,26 @@
 const express = require('express')
 const bcrypt = require('bcryptjs')
-const router = express.Router()
-const usersService = require('./userService')
-const courseSevrvice = require('./courseService')
-const questionService = require('./questionService')
-const answerService = require('./answerService')
-const resultService = require('./resultService')
 const jwt = require('jsonwebtoken')
-const SECRET_KEY = 'Doraemon'
 
-const { Question, Result } = require('./db')
-const { Answer } = require('./db')
+const router = express.Router()
+
+const usersService = require('../services/users.js')
+const courseSevrvice = require('../services/courses.js')
+const questionService = require('../services/questions.js')
+const answerService = require('../services/answers.js')
+const resultService = require('../services/results.js')
+
+
+const SECRET_KEY = 'kidConan'
+const saltRounds = 10
+
+const { Question, Result } = require('../db')
+const { Answer } = require('../db')
 
 
 
 router.post('/register', async (req, res) => {
   const body = req.body
-  const saltRounds = 10
-
   const user = await usersService.findByUsername(body.username)
 
   if (user) {
@@ -319,4 +322,6 @@ router.get('/results', async(req, res) => {
    const results = await resultService.getResultByMarkDescending()
    res.send(results)
 })
+
+
 module.exports = router

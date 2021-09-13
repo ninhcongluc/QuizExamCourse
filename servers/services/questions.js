@@ -1,5 +1,5 @@
 
-const { Question } = require('./db')
+const { Question } = require('../db')
 
 const insertOne = async (type, content, correct_answer, course_id) => {
     const res = await Question.query().insert({

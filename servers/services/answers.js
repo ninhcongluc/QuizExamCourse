@@ -1,4 +1,4 @@
-const { Answer } = require('./db')
+const { Answer } = require('../db')
 
 const insertOne = async (answer) => {
     const res = await Answer.query().insert({
