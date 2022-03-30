@@ -1,5 +1,5 @@
 
-const { User } = require('../db')
+const { User, Result } = require('../db')
 
 const idExists = (id) => {
   return User.query().findById(id)
@@ -28,10 +28,13 @@ const update = async (id, username, password, email, fullname, admin, position) 
 }
 
 const deleteUser = async (id) => {
-  await User.query()
+  await Promise.all([
+    User.query()
     .delete()
-    .where('id', '=', id);
-}
+    .where('id', '=', id),
+    Result.query().delete().where('uid', '=', id)
+  ])}
+
 const addOne = (username, password, email, fullname, position, admin) => {
   return User.query().insert({
     username: username,

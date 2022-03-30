@@ -15,7 +15,6 @@ const addOne = async(mark, status, time, userId, courseId) => {
 const getResultByMarkDescending =  async() => {
     return Result.query()
       .select('*')
-      .skipUndefined()
       .orderBy('mark', 'DESC')
   }
 module.exports = {

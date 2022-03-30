@@ -1,14 +1,21 @@
 
-const { Question } = require('../db')
+const { Question, Answer } = require('../db')
 
 const insertOne = async (type, content, correct_answer, course_id) => {
-    const res = await Question.query().insert({
+    const question = await Question.query().insert({
         type,
         content,
         correct_answer,
         course_id
     })
-    console.log(res)
+
+    // create default answer correct
+    await Answer.query().insert({
+        content: question.correct_answer,
+        questionId: question.id,
+        courseId: course_id
+    })
+    
 }
 
 const findListQuestion = async (course_id) => {
